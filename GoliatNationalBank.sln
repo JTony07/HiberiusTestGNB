@@ -3,7 +3,81 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SitioWebGNB", "SitioWebGNB\", "{B3A23308-AADA-41F7-BDDE-E8350EA9C259}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_59353"
+		Debug.AspNetCompiler.PhysicalPath = "SitioWebGNB\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59353\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_59353"
+		Release.AspNetCompiler.PhysicalPath = "SitioWebGNB\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59353\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "59353"
+		SlnRelativePath = "SitioWebGNB\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{46DA80D5-6CDF-40B5-AF47-7EE8BFD54270} = {46DA80D5-6CDF-40B5-AF47-7EE8BFD54270}
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "GNBWebServiceNegocios", "GNBWebServiceNegocios\", "{46DA80D5-6CDF-40B5-AF47-7EE8BFD54270}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{df4ee636-e3e2-4f82-90d0-837fd89c5c0e}|CapaDatos.dll;{8c6ff4a1-04fb-46fa-8518-95216a8576cd}|Common.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_59365"
+		Debug.AspNetCompiler.PhysicalPath = "GNBWebServiceNegocios\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59365\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_59365"
+		Release.AspNetCompiler.PhysicalPath = "GNBWebServiceNegocios\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59365\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "59365"
+		SlnRelativePath = "GNBWebServiceNegocios\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaDatos", "CapaDatos\CapaDatos.csproj", "{DF4EE636-E3E2-4F82-90D0-837FD89C5C0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{8C6FF4A1-04FB-46FA-8518-95216A8576CD}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3A23308-AADA-41F7-BDDE-E8350EA9C259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A23308-AADA-41F7-BDDE-E8350EA9C259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A23308-AADA-41F7-BDDE-E8350EA9C259}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A23308-AADA-41F7-BDDE-E8350EA9C259}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{46DA80D5-6CDF-40B5-AF47-7EE8BFD54270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DA80D5-6CDF-40B5-AF47-7EE8BFD54270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DA80D5-6CDF-40B5-AF47-7EE8BFD54270}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DA80D5-6CDF-40B5-AF47-7EE8BFD54270}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{DF4EE636-E3E2-4F82-90D0-837FD89C5C0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF4EE636-E3E2-4F82-90D0-837FD89C5C0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF4EE636-E3E2-4F82-90D0-837FD89C5C0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF4EE636-E3E2-4F82-90D0-837FD89C5C0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C6FF4A1-04FB-46FA-8518-95216A8576CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C6FF4A1-04FB-46FA-8518-95216A8576CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C6FF4A1-04FB-46FA-8518-95216A8576CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C6FF4A1-04FB-46FA-8518-95216A8576CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
