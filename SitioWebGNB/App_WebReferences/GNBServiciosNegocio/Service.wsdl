@@ -42,6 +42,12 @@
   <wsdl:message name="IService_ObtenerConversiones_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerConversionesResponse" />
   </wsdl:message>
+  <wsdl:message name="IService_BuscarProductos_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarProductos" />
+  </wsdl:message>
+  <wsdl:message name="IService_BuscarProductos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarProductosResponse" />
+  </wsdl:message>
   <wsdl:message name="IService_ConversionesEnLinea_InputMessage">
     <wsdl:part name="parameters" element="tns:ConversionesEnLinea" />
   </wsdl:message>
@@ -78,6 +84,10 @@
     <wsdl:operation name="ObtenerConversiones">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerConversiones" message="tns:IService_ObtenerConversiones_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerConversionesResponse" message="tns:IService_ObtenerConversiones_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarProductos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/BuscarProductos" message="tns:IService_BuscarProductos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/BuscarProductosResponse" message="tns:IService_BuscarProductos_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ConversionesEnLinea">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/ConversionesEnLinea" message="tns:IService_ConversionesEnLinea_InputMessage" />
@@ -137,6 +147,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerConversiones">
       <soap:operation soapAction="http://tempuri.org/IService/ObtenerConversiones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarProductos">
+      <soap:operation soapAction="http://tempuri.org/IService/BuscarProductos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

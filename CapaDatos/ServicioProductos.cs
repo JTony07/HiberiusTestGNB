@@ -45,6 +45,13 @@ namespace CapaDatos
             return pEntidad.GNB_PRODUCTOS.ToList<GNB_PRODUCTOS>(); // se convierten todos los elementos a una lista
         }
 
+        //se buscan todos los productos de la tabla GNB_PRODUCTOS
+        public List<GNB_PRODUCTOS> BuscarProductos(GNB_PRODUCTOS pProducto)
+        {
+            BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
+            List<GNB_PRODUCTOS> revisionTabla = (from dato in pEntidad.GNB_PRODUCTOS where dato.SKU == pProducto.SKU select dato).ToList<GNB_PRODUCTOS>();
+            return revisionTabla; // se convierten todos los elementos a una lista
+        }
 
     }
 }

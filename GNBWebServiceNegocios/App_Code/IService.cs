@@ -31,6 +31,9 @@ public interface IService
     string ObtenerConversiones();
 
     [OperationContract]
+    string BuscarProductos(string mP);
+
+    [OperationContract]
     void ConversionesEnLinea(string xmlLink);
 
     [OperationContract]

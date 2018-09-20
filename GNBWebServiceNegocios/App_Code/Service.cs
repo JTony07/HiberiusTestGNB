@@ -231,12 +231,34 @@ public class Service : IService
                 pProducto.CURRENCY = Atributo3.InnerText.ToString();
 
                 if (TablaProductos.Count == 0) pServicioProductos.AgregarProducto(pProducto);
-                else pServicioProductos.ActualizarProductos(pProducto);
+                //else pServicioProductos.ActualizarProductos(pProducto);
             }
         }
         catch (Exception Ex)
         {
 
         }
+    }
+
+    public string BuscarProductos(string mP)
+    {
+        GNB_PRODUCTOS Prueba = new GNB_PRODUCTOS();
+        Prueba.SKU = mP;
+        ServicioProductos pServicioProductos = new ServicioProductos();
+        List<GNB_PRODUCTOS> pProductos = pServicioProductos.BuscarProductos(Prueba);
+        ProductosCollection pProductosCollection = new ProductosCollection();
+        foreach (GNB_PRODUCTOS indice in pProductos)
+        {
+            Productos iComun = new Productos();
+            iComun.Id_Productos = indice.ID_PRODUCTOS;
+            iComun.Sku = indice.SKU;
+            iComun.Ammount = Convert.ToDouble(indice.AMMOUNT);
+            iComun.Currency = indice.CURRENCY;
+            pProductosCollection.Add(iComun);
+        }
+        XmlSerializer pSerializador = new XmlSerializer(typeof(ProductosCollection));
+        StringWriter escritor = new StringWriter();
+        pSerializador.Serialize(escritor, pProductosCollection);
+        return escritor.ToString();
     }
 }
