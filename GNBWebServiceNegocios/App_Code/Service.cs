@@ -9,10 +9,77 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Xml.Serialization;
+using System.Xml;
+using System.Globalization;
 
-// NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "Service1" en el código, en svc y en el archivo de configuración.
+
 public class Service : IService
 {
+    public void ConversionesEnLinea(string xmlLink)
+    {
+        try
+        {   //se crea un objeto de Tipo XMLDocument que permite descargar almacenado en cache los datos del servidor
+            XmlDocument DocumentoXml = new XmlDocument();
+            //se carga el archivo del link proporcionado
+            DocumentoXml.Load(xmlLink);
+            //se selecciona el primer elemento padre dentro del XML
+            XmlElement ElementoRaiz = DocumentoXml.DocumentElement;
+            //se revisan los nodos del elemento raiz
+            XmlNodeList Nodos = ElementoRaiz.ChildNodes;
+            //se crea un objeto de tipo collection para almacenar la tabla que se solicita desde heroku
+            ConversionesCollection pConversionesEnLinea = new ConversionesCollection();
+            //se crea un formateador para indicar si el separador es un punto o una coma en los numeros del RATE
+            NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
+            proveedorDecimal.NumberDecimalSeparator = ".";
+            //se crea una instancia del servicio para consultar si la base de datos esta vacia o llena
+            ServicioConversiones pServicioConversiones = new ServicioConversiones();
+
+            List<GNB_CONVERSIONES> pConversiones = new List<GNB_CONVERSIONES>();
+            
+            List<GNB_CONVERSIONES> TablaConversiones = pServicioConversiones.ObtenerConversiones();
+
+            GNB_CONVERSIONES pConversion = new GNB_CONVERSIONES();
+
+            //se recorren todos los nodos de la raiz
+            for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
+            {
+                //se crea un objeto de tipo CONVERSIONES que almacenara los datos de cada "rate" en el XML
+                Conversiones pConversionesActuales = new Conversiones();
+                //se selecciona un nodo de la raiz
+                XmlNode NodoActual = Nodos.Item(pNodos);
+                //se extraen todos los datos almacenados dentro del nodo
+                XmlElement Dato = (XmlElement)NodoActual;
+                //se extraen los atributos "from" "to" "rate"
+                XmlAttribute Atributo1 = Dato.GetAttributeNode("from");
+                XmlAttribute Atributo2 = Dato.GetAttributeNode("to");
+                XmlAttribute Atributo3 = Dato.GetAttributeNode("rate");
+                pConversion.ID_CONVERSION = pNodos + 1;
+                pConversion.FROM_CURRENCY = Atributo1.InnerText.ToString();
+                pConversion.TO_CURRENCY = Atributo2.InnerText.ToString();
+                pConversion.RATE = Atributo3.InnerText.ToString();
+                
+                if (TablaConversiones.Count == 0)
+                {
+                    pServicioConversiones.AgregarConversiones(pConversion);
+                }
+                else
+                {
+                    pServicioConversiones.ActualizarConversiones(pConversion);
+                }
+
+            }
+            
+
+        }
+        catch (Exception Ex)
+        {
+
+        }
+        
+
+    }
+
+
     public void ActualizarConversiones(string mC)
     {
         //objeto que recibira los elementos serializados
@@ -97,6 +164,7 @@ public class Service : IService
         pServicioProductos.AgregarProducto(pDatos);
     }
 
+
     public string ObtenerConversiones()
     {
         //se crea una instancia del servicio 
@@ -146,4 +214,6 @@ public class Service : IService
         pSerializador.Serialize(escritor, pProductosCollection);
         return escritor.ToString();
     }
+
+
 }

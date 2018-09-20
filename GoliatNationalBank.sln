@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SitioWebGNB", "SitioWebGNB\", "{B3A23308-AADA-41F7-BDDE-E8350EA9C259}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{8c6ff4a1-04fb-46fa-8518-95216a8576cd}|Common.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_59353"
 		Debug.AspNetCompiler.PhysicalPath = "SitioWebGNB\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59353\"
