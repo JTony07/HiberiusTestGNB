@@ -80,6 +80,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GNBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="BD_GNB\BD_GNB.bak" />
     <None Include="GNBModel.edmx.diagram">
       <DependentUpon>GNBModel.edmx</DependentUpon>
     </None>
