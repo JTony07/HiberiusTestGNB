@@ -18,8 +18,8 @@
           <Key>
             <PropertyRef Name="ID_PRODUCTOS" />
           </Key>
-          <Property Name="ID_PRODUCTOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SKU" Type="int" Nullable="false" />
+          <Property Name="ID_PRODUCTOS" Type="int" Nullable="false" />
+          <Property Name="SKU" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AMMOUNT" Type="money" Nullable="false" />
           <Property Name="CURRENCY" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -45,12 +45,12 @@
           <Key>
             <PropertyRef Name="ID_PRODUCTOS" />
           </Key>
-          <Property Name="ID_PRODUCTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SKU" Type="Int32" Nullable="false" />
+          <Property Name="ID_PRODUCTOS" Type="Int32" Nullable="false" />
+          <Property Name="SKU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AMMOUNT" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="CURRENCY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="BD_GNBEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BD_GNBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="GNB_CONVERSIONES" EntityType="Self.GNB_CONVERSIONES" />
           <EntitySet Name="GNB_PRODUCTOS" EntityType="Self.GNB_PRODUCTOS" />
         </EntityContainer>
@@ -59,7 +59,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BD_GNBModelStoreContainer" CdmEntityContainer="BD_GNBEntities1">
+        <EntityContainerMapping StorageEntityContainer="BD_GNBModelStoreContainer" CdmEntityContainer="BD_GNBEntities">
           <EntitySetMapping Name="GNB_CONVERSIONES">
             <EntityTypeMapping TypeName="BD_GNBModel.GNB_CONVERSIONES">
               <MappingFragment StoreEntitySet="GNB_CONVERSIONES">

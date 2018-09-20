@@ -15,71 +15,6 @@ using System.Globalization;
 
 public class Service : IService
 {
-    public void ConversionesEnLinea(string xmlLink)
-    {
-        try
-        {   //se crea un objeto de Tipo XMLDocument que permite descargar almacenado en cache los datos del servidor
-            XmlDocument DocumentoXml = new XmlDocument();
-            //se carga el archivo del link proporcionado
-            DocumentoXml.Load(xmlLink);
-            //se selecciona el primer elemento padre dentro del XML
-            XmlElement ElementoRaiz = DocumentoXml.DocumentElement;
-            //se revisan los nodos del elemento raiz
-            XmlNodeList Nodos = ElementoRaiz.ChildNodes;
-            //se crea un objeto de tipo collection para almacenar la tabla que se solicita desde heroku
-            ConversionesCollection pConversionesEnLinea = new ConversionesCollection();
-            //se crea un formateador para indicar si el separador es un punto o una coma en los numeros del RATE
-            NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-            proveedorDecimal.NumberDecimalSeparator = ".";
-            //se crea una instancia del servicio para consultar si la base de datos esta vacia o llena
-            ServicioConversiones pServicioConversiones = new ServicioConversiones();
-
-            List<GNB_CONVERSIONES> pConversiones = new List<GNB_CONVERSIONES>();
-            
-            List<GNB_CONVERSIONES> TablaConversiones = pServicioConversiones.ObtenerConversiones();
-
-            GNB_CONVERSIONES pConversion = new GNB_CONVERSIONES();
-
-            //se recorren todos los nodos de la raiz
-            for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
-            {
-                //se crea un objeto de tipo CONVERSIONES que almacenara los datos de cada "rate" en el XML
-                Conversiones pConversionesActuales = new Conversiones();
-                //se selecciona un nodo de la raiz
-                XmlNode NodoActual = Nodos.Item(pNodos);
-                //se extraen todos los datos almacenados dentro del nodo
-                XmlElement Dato = (XmlElement)NodoActual;
-                //se extraen los atributos "from" "to" "rate"
-                XmlAttribute Atributo1 = Dato.GetAttributeNode("from");
-                XmlAttribute Atributo2 = Dato.GetAttributeNode("to");
-                XmlAttribute Atributo3 = Dato.GetAttributeNode("rate");
-                pConversion.ID_CONVERSION = pNodos + 1;
-                pConversion.FROM_CURRENCY = Atributo1.InnerText.ToString();
-                pConversion.TO_CURRENCY = Atributo2.InnerText.ToString();
-                pConversion.RATE = Atributo3.InnerText.ToString();
-                
-                if (TablaConversiones.Count == 0)
-                {
-                    pServicioConversiones.AgregarConversiones(pConversion);
-                }
-                else
-                {
-                    pServicioConversiones.ActualizarConversiones(pConversion);
-                }
-
-            }
-            
-
-        }
-        catch (Exception Ex)
-        {
-
-        }
-        
-
-    }
-
-
     public void ActualizarConversiones(string mC)
     {
         //objeto que recibira los elementos serializados
@@ -215,5 +150,93 @@ public class Service : IService
         return escritor.ToString();
     }
 
+    public void ConversionesEnLinea(string xmlLink)
+    {
+        try
+        {   //se crea un objeto de Tipo XMLDocument que permite descargar almacenado en cache los datos del servidor
+            XmlDocument DocumentoXml = new XmlDocument();
+            //se carga el archivo del link proporcionado
+            DocumentoXml.Load(xmlLink);
+            //se selecciona el primer elemento padre dentro del XML
+            XmlElement ElementoRaiz = DocumentoXml.DocumentElement;
+            //se revisan los nodos del elemento raiz
+            XmlNodeList Nodos = ElementoRaiz.ChildNodes;
+            //se crea un objeto de tipo collection para almacenar la tabla que se solicita desde heroku
+            ConversionesCollection pConversionesEnLinea = new ConversionesCollection();
+            //se crea una instancia del servicio para consultar si la base de datos esta vacia o llena
+            ServicioConversiones pServicioConversiones = new ServicioConversiones();
 
+            List<GNB_CONVERSIONES> pConversiones = new List<GNB_CONVERSIONES>();
+
+            List<GNB_CONVERSIONES> TablaConversiones = pServicioConversiones.ObtenerConversiones();
+
+            GNB_CONVERSIONES pConversion = new GNB_CONVERSIONES();
+
+            //se recorren todos los nodos de la raiz
+            for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
+            {
+                //se crea un objeto de tipo CONVERSIONES que almacenara los datos de cada "rate" en el XML
+                Conversiones pConversionesActuales = new Conversiones();
+                //se selecciona un nodo de la raiz
+                XmlNode NodoActual = Nodos.Item(pNodos);
+                //se extraen todos los datos almacenados dentro del nodo
+                XmlElement Dato = (XmlElement)NodoActual;
+                //se extraen los atributos "from" "to" "rate"
+                XmlAttribute Atributo1 = Dato.GetAttributeNode("from");
+                XmlAttribute Atributo2 = Dato.GetAttributeNode("to");
+                XmlAttribute Atributo3 = Dato.GetAttributeNode("rate");
+                pConversion.ID_CONVERSION = pNodos + 1;
+                pConversion.FROM_CURRENCY = Atributo1.InnerText.ToString();
+                pConversion.TO_CURRENCY = Atributo2.InnerText.ToString();
+                pConversion.RATE = Atributo3.InnerText.ToString();
+
+                if (TablaConversiones.Count == 0) pServicioConversiones.AgregarConversiones(pConversion);
+                else pServicioConversiones.ActualizarConversiones(pConversion);
+            }
+        }
+        catch (Exception Ex)
+        {
+
+        }
+    }
+
+
+    public void ProductosEnLinea(string xmlLink)
+    {
+        try
+        {   
+            XmlDocument DocumentoXml = new XmlDocument();
+            DocumentoXml.Load(xmlLink);         
+            XmlElement ElementoRaiz = DocumentoXml.DocumentElement;
+            XmlNodeList Nodos = ElementoRaiz.ChildNodes;
+            //se crea un formateador para indicar si el separador es un punto o una coma en los numeros del RATE
+            NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
+            proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
+            ServicioProductos pServicioProductos = new ServicioProductos();
+            List<GNB_PRODUCTOS> pProductos = new List<GNB_PRODUCTOS>();
+            List<GNB_PRODUCTOS> TablaProductos = pServicioProductos.ObtenerProductos();
+            GNB_PRODUCTOS pProducto = new GNB_PRODUCTOS();
+
+            for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
+            {
+                Conversiones pConversionesActuales = new Conversiones();
+                XmlNode NodoActual = Nodos.Item(pNodos);
+                XmlElement Dato = (XmlElement)NodoActual;
+                XmlAttribute Atributo1 = Dato.GetAttributeNode("sku");
+                XmlAttribute Atributo2 = Dato.GetAttributeNode("amount");
+                XmlAttribute Atributo3 = Dato.GetAttributeNode("currency");
+                pProducto.ID_PRODUCTOS = pNodos + 1;
+                pProducto.SKU = Atributo1.InnerText.ToString();
+                pProducto.AMMOUNT = Convert.ToDecimal(Atributo2.InnerText.ToString(), proveedorDecimal);
+                pProducto.CURRENCY = Atributo3.InnerText.ToString();
+
+                if (TablaProductos.Count == 0) pServicioProductos.AgregarProducto(pProducto);
+                else pServicioProductos.ActualizarProductos(pProducto);
+            }
+        }
+        catch (Exception Ex)
+        {
+
+        }
+    }
 }

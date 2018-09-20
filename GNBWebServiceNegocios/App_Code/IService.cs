@@ -33,6 +33,10 @@ public interface IService
     [OperationContract]
     void ConversionesEnLinea(string xmlLink);
 
+    [OperationContract]
+    void ProductosEnLinea(string xmlLink);
+
+
 
 }
 

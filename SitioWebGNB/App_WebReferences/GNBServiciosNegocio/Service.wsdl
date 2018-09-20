@@ -48,6 +48,12 @@
   <wsdl:message name="IService_ConversionesEnLinea_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConversionesEnLineaResponse" />
   </wsdl:message>
+  <wsdl:message name="IService_ProductosEnLinea_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProductosEnLinea" />
+  </wsdl:message>
+  <wsdl:message name="IService_ProductosEnLinea_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProductosEnLineaResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService">
     <wsdl:operation name="AgregarProductos">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/AgregarProductos" message="tns:IService_AgregarProductos_InputMessage" />
@@ -76,6 +82,10 @@
     <wsdl:operation name="ConversionesEnLinea">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/ConversionesEnLinea" message="tns:IService_ConversionesEnLinea_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/ConversionesEnLineaResponse" message="tns:IService_ConversionesEnLinea_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductosEnLinea">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ProductosEnLinea" message="tns:IService_ProductosEnLinea_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ProductosEnLineaResponse" message="tns:IService_ProductosEnLinea_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
@@ -136,6 +146,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConversionesEnLinea">
       <soap:operation soapAction="http://tempuri.org/IService/ConversionesEnLinea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductosEnLinea">
+      <soap:operation soapAction="http://tempuri.org/IService/ProductosEnLinea" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

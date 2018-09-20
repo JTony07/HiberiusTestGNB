@@ -11,7 +11,7 @@ namespace CapaDatos
         //se agregan los productos a la base de datos
         public void AgregarProducto(GNB_PRODUCTOS pProducto)
         {
-            BD_GNBEntities1 pEntidad = new BD_GNBEntities1(); //se apunta a la base de datos
+            BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
             pEntidad.GNB_PRODUCTOS.Add(pProducto); //se agregan los elementos a la tabla GNB_PRODUCTOS
             pEntidad.SaveChanges(); //se guardan los cambios en la base de datos
         }
@@ -19,7 +19,7 @@ namespace CapaDatos
         //se actualizan los productos en la base de datos
         public void ActualizarProductos(GNB_PRODUCTOS pProducto)
         {
-            BD_GNBEntities1 pEntidad = new BD_GNBEntities1(); // se apunta al a base de datos
+            BD_GNBEntities pEntidad = new BD_GNBEntities(); // se apunta al a base de datos
             //se busca mediante una consulta donde los ID_SKU coincidan y entonces se actualiza si existe coincidencia
             //esto permite que si existe un cambio en el recurso de HEROKU la base de datos se actualice
             //
@@ -41,7 +41,7 @@ namespace CapaDatos
         //se buscan todos los productos de la tabla GNB_PRODUCTOS
         public List<GNB_PRODUCTOS> ObtenerProductos()
         {
-            BD_GNBEntities1 pEntidad = new BD_GNBEntities1(); //se apunta a la base de datos
+            BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
             return pEntidad.GNB_PRODUCTOS.ToList<GNB_PRODUCTOS>(); // se convierten todos los elementos a una lista
         }
 

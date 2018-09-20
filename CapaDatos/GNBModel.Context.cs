@@ -13,10 +13,10 @@ namespace CapaDatos
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BD_GNBEntities1 : DbContext
+    public partial class BD_GNBEntities : DbContext
     {
-        public BD_GNBEntities1()
-            : base("name=BD_GNBEntities1")
+        public BD_GNBEntities()
+            : base("name=BD_GNBEntities")
         {
         }
     
