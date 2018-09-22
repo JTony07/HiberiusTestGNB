@@ -17,6 +17,6 @@ namespace CapaDatos
         public int ID_CONVERSION { get; set; }
         public string FROM_CURRENCY { get; set; }
         public string TO_CURRENCY { get; set; }
-        public string RATE { get; set; }
+        public decimal RATE { get; set; }
     }
 }

@@ -48,11 +48,17 @@
   <wsdl:message name="IService_BuscarProductos_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuscarProductosResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_ConversionesEnLinea_InputMessage">
-    <wsdl:part name="parameters" element="tns:ConversionesEnLinea" />
+  <wsdl:message name="IService_ConsultaXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaXML" />
   </wsdl:message>
-  <wsdl:message name="IService_ConversionesEnLinea_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ConversionesEnLineaResponse" />
+  <wsdl:message name="IService_ConsultaXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_LimpiarProductos_InputMessage">
+    <wsdl:part name="parameters" element="tns:LimpiarProductos" />
+  </wsdl:message>
+  <wsdl:message name="IService_LimpiarProductos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LimpiarProductosResponse" />
   </wsdl:message>
   <wsdl:message name="IService_ProductosEnLinea_InputMessage">
     <wsdl:part name="parameters" element="tns:ProductosEnLinea" />
@@ -89,9 +95,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService/BuscarProductos" message="tns:IService_BuscarProductos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/BuscarProductosResponse" message="tns:IService_BuscarProductos_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ConversionesEnLinea">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/ConversionesEnLinea" message="tns:IService_ConversionesEnLinea_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/ConversionesEnLineaResponse" message="tns:IService_ConversionesEnLinea_OutputMessage" />
+    <wsdl:operation name="ConsultaXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ConsultaXML" message="tns:IService_ConsultaXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ConsultaXMLResponse" message="tns:IService_ConsultaXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LimpiarProductos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/LimpiarProductos" message="tns:IService_LimpiarProductos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/LimpiarProductosResponse" message="tns:IService_LimpiarProductos_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ProductosEnLinea">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/ProductosEnLinea" message="tns:IService_ProductosEnLinea_InputMessage" />
@@ -163,8 +173,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConversionesEnLinea">
-      <soap:operation soapAction="http://tempuri.org/IService/ConversionesEnLinea" style="document" />
+    <wsdl:operation name="ConsultaXML">
+      <soap:operation soapAction="http://tempuri.org/IService/ConsultaXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LimpiarProductos">
+      <soap:operation soapAction="http://tempuri.org/IService/LimpiarProductos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

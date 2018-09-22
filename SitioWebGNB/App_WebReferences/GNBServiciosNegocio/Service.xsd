@@ -76,6 +76,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mP" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Busqueda" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -86,14 +87,26 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ConversionesEnLinea">
+  <xs:element name="ConsultaXML">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="xmlLink" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ConversionesEnLineaResponse">
+  <xs:element name="ConsultaXMLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConsultaXMLResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LimpiarProductos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LimpiarProductosResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
