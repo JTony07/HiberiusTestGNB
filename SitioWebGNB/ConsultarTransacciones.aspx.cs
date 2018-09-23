@@ -35,10 +35,10 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
 
         string ResultadoBusqueda = pServicio.BuscarProductos(PruebaResultadoBD, TextBox1.Text);
 
-        XmlSerializer pSerializador = new XmlSerializer(typeof(ProductosCollection));
+        XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
         StringReader lector = new StringReader(ResultadoBusqueda);
 
-        ProductosCollection ProductosEncontrados = (ProductosCollection)pSerializador.Deserialize(lector);
+        TransacCollection ProductosEncontrados = (TransacCollection)pSerializador.Deserialize(lector);
         GridView1.DataSource = ProductosEncontrados;
         GridView1.DataBind();
 

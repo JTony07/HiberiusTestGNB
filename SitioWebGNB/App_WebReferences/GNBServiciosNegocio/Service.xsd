@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="AgregarProductos">
+  <xs:element name="AgregarTransacciones">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mP" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AgregarProductosResponse">
+  <xs:element name="AgregarTransaccionesResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="ActualizarProductos">
+  <xs:element name="ActualizarTransacciones">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mP" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ActualizarProductosResponse">
+  <xs:element name="ActualizarTransaccionesResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="ObtenerProductos">
+  <xs:element name="ObtenerTransacciones">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="ObtenerProductosResponse">
+  <xs:element name="ObtenerTransaccionesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ObtenerProductosResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ObtenerTransaccionesResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -72,7 +72,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="BuscarProductos">
+  <xs:element name="BuscarTransacciones">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mP" nillable="true" type="xs:string" />
@@ -80,10 +80,10 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="BuscarProductosResponse">
+  <xs:element name="BuscarTransaccionesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="BuscarProductosResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="BuscarTransaccionesResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -101,24 +101,24 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="LimpiarProductos">
+  <xs:element name="LimpiarTransacciones">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="LimpiarProductosResponse">
+  <xs:element name="LimpiarTransaccionesResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="ProductosEnLinea">
+  <xs:element name="TransaccionesEnLinea">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="xmlLink" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ProductosEnLineaResponse">
+  <xs:element name="TransaccionesEnLineaResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

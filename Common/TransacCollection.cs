@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Common
 {
     [Serializable]
-    public class ProductosCollection : List<Productos>
+    public class TransacCollection : List<Transac>
     {
 
     }

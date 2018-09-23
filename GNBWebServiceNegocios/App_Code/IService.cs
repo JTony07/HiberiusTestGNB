@@ -15,13 +15,13 @@ public interface IService
 {
 
     [OperationContract]
-    void AgregarProductos(string mP);
+    void AgregarTransacciones(string mP);
 
     [OperationContract]
-    void ActualizarProductos(string mP);
+    void ActualizarTransacciones(string mP);
 
     [OperationContract]
-    string ObtenerProductos();
+    string ObtenerTransacciones();
 
     [OperationContract]
     void AgregarConversiones(string mC);
@@ -33,21 +33,20 @@ public interface IService
     string ObtenerConversiones();
 
     [OperationContract]
-    string BuscarProductos(string mP, string Busqueda);
+    string BuscarTransacciones(string mP, string Busqueda);
 
     [OperationContract]
     string ConsultaXML(string xmlLink);
 
     [OperationContract]
-    void LimpiarProductos();
-
+    void LimpiarTransacciones();
 
 
     //[OperationContract]
     //void ConversionesEnLinea(string xmlLink);
 
     [OperationContract]
-    void ProductosEnLinea(string xmlLink);
+    void TransaccionesEnLinea(string xmlLink);
 
     //[OperationContract]
     //string Busqueda(string Producto, List<GNB_PRODUCTOS> ListaProductos);

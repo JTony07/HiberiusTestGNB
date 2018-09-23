@@ -14,18 +14,18 @@
           <Property Name="TO_CURRENCY" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RATE" Type="money" Nullable="false" />
         </EntityType>
-        <EntityType Name="GNB_PRODUCTOS">
+        <EntityType Name="GNB_TRANSAC">
           <Key>
-            <PropertyRef Name="ID_PRODUCTS" />
+            <PropertyRef Name="ID_PRODUCT" />
           </Key>
-          <Property Name="ID_PRODUCTS" Type="int" Nullable="false" />
+          <Property Name="ID_PRODUCT" Type="int" Nullable="false" />
           <Property Name="SKU" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AMOUNT" Type="money" Nullable="false" />
           <Property Name="CURRENCY" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="GNB_BDModelStoreContainer">
           <EntitySet Name="GNB_CONVERSIONES" EntityType="Self.GNB_CONVERSIONES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GNB_PRODUCTOS" EntityType="Self.GNB_PRODUCTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GNB_TRANSAC" EntityType="Self.GNB_TRANSAC" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -41,25 +41,25 @@
           <Property Name="TO_CURRENCY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RATE" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
         </EntityType>
-        <EntityType Name="GNB_PRODUCTOS">
+        <EntityType Name="GNB_TRANSAC">
           <Key>
-            <PropertyRef Name="ID_PRODUCTS" />
+            <PropertyRef Name="ID_PRODUCT" />
           </Key>
-          <Property Name="ID_PRODUCTS" Type="Int32" Nullable="false" />
+          <Property Name="ID_PRODUCT" Type="Int32" Nullable="false" />
           <Property Name="SKU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AMOUNT" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="CURRENCY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="GNB_BDEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="GNB_BDEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="GNB_CONVERSIONES" EntityType="Self.GNB_CONVERSIONES" />
-          <EntitySet Name="GNB_PRODUCTOS" EntityType="Self.GNB_PRODUCTOS" />
+          <EntitySet Name="GNB_TRANSAC" EntityType="Self.GNB_TRANSAC" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GNB_BDModelStoreContainer" CdmEntityContainer="GNB_BDEntities">
+        <EntityContainerMapping StorageEntityContainer="GNB_BDModelStoreContainer" CdmEntityContainer="GNB_BDEntities1">
           <EntitySetMapping Name="GNB_CONVERSIONES">
             <EntityTypeMapping TypeName="GNB_BDModel.GNB_CONVERSIONES">
               <MappingFragment StoreEntitySet="GNB_CONVERSIONES">
@@ -70,10 +70,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GNB_PRODUCTOS">
-            <EntityTypeMapping TypeName="GNB_BDModel.GNB_PRODUCTOS">
-              <MappingFragment StoreEntitySet="GNB_PRODUCTOS">
-                <ScalarProperty Name="ID_PRODUCTS" ColumnName="ID_PRODUCTS" />
+          <EntitySetMapping Name="GNB_TRANSAC">
+            <EntityTypeMapping TypeName="GNB_BDModel.GNB_TRANSAC">
+              <MappingFragment StoreEntitySet="GNB_TRANSAC">
+                <ScalarProperty Name="ID_PRODUCT" ColumnName="ID_PRODUCT" />
                 <ScalarProperty Name="SKU" ColumnName="SKU" />
                 <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
                 <ScalarProperty Name="CURRENCY" ColumnName="CURRENCY" />
