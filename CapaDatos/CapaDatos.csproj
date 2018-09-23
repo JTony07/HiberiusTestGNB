@@ -65,10 +65,25 @@
       <DependentUpon>GNBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="GNB_CONVERSIONES.cs">
-      <DependentUpon>GNBModel.tt</DependentUpon>
+      <DependentUpon>ModelGNB.tt</DependentUpon>
     </Compile>
     <Compile Include="GNB_PRODUCTOS.cs">
-      <DependentUpon>GNBModel.tt</DependentUpon>
+      <DependentUpon>ModelGNB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelGNB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelGNB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelGNB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelGNB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelGNB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelGNB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicioConversiones.cs" />
@@ -83,6 +98,13 @@
     <None Include="BD_GNB\BD_GNB.bak" />
     <None Include="GNBModel.edmx.diagram">
       <DependentUpon>GNBModel.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="ModelGNB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelGNB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelGNB.edmx.diagram">
+      <DependentUpon>ModelGNB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -99,6 +121,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GNBModel.edmx</DependentUpon>
       <LastGenOutput>GNBModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelGNB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelGNB.edmx</DependentUpon>
+      <LastGenOutput>ModelGNB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelGNB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelGNB.edmx</DependentUpon>
+      <LastGenOutput>ModelGNB.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

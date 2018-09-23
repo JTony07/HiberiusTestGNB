@@ -15,22 +15,43 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
         GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient();
         Uri uriHerokuC = new Uri ("http://quiet-stone-2094.herokuapp.com/rates.xml");
         Uri uriHerokuP = new Uri("http://quiet-stone-2094.herokuapp.com/transactions.xml");
-        pServicio.ConversionesEnLinea(uriHerokuC.ToString());
+
+        //pServicio.LimpiarProductos();
+
+        //pServicio.ConversionesEnLinea(uriHerokuC.ToString());
+        
         pServicio.ProductosEnLinea(uriHerokuP.ToString());
+        //pServicio.LimpiarProductos(); FUNCIONA
     }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-
         GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient();
-        //string BusquedaProductos = pServicio.BuscarProductos(TextBox1.Text);
-        string RecuperarLista = pServicio.ObtenerProductos();
+        Uri uriHerokuP = new Uri("http://quiet-stone-2094.herokuapp.com/transactions.xml");
+
+        string ResultadoXML = pServicio.ConsultaXML(uriHerokuP.ToString());
+
+        string PruebaResultadoBD = pServicio.ObtenerProductos();
+
+        string ResultadoBusqueda = pServicio.BuscarProductos(PruebaResultadoBD, TextBox1.Text);
+
         XmlSerializer pSerializador = new XmlSerializer(typeof(ProductosCollection));
-        //StringReader lector = new StringReader(BusquedaProductos);
-        StringReader lector = new StringReader(RecuperarLista);
+        StringReader lector = new StringReader(ResultadoBusqueda);
+
         ProductosCollection ProductosEncontrados = (ProductosCollection)pSerializador.Deserialize(lector);
         GridView1.DataSource = ProductosEncontrados;
         GridView1.DataBind();
 
+        //pServicio.ConsultaProductos(uriHerokuP.ToString());
+
+        //GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient();
+        ////string BusquedaProductos = pServicio.BuscarProductos(TextBox1.Text);
+        //string RecuperarLista = pServicio.ObtenerProductos();
+        //XmlSerializer pSerializador = new XmlSerializer(typeof(ProductosCollection));
+        ////StringReader lector = new StringReader(BusquedaProductos);
+        //StringReader lector = new StringReader(RecuperarLista);
+        //ProductosCollection ProductosEncontrados = (ProductosCollection)pSerializador.Deserialize(lector);
+        //GridView1.DataSource = ProductosEncontrados;
+        //GridView1.DataBind();
     }
 }

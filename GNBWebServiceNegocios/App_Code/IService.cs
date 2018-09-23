@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CapaDatos;
+using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -31,16 +33,27 @@ public interface IService
     string ObtenerConversiones();
 
     [OperationContract]
-    string BuscarProductos(string mP);
+    string BuscarProductos(string mP, string Busqueda);
 
     [OperationContract]
-    void ConversionesEnLinea(string xmlLink);
+    string ConsultaXML(string xmlLink);
+
+    [OperationContract]
+    void LimpiarProductos();
+
+
+
+    //[OperationContract]
+    //void ConversionesEnLinea(string xmlLink);
 
     [OperationContract]
     void ProductosEnLinea(string xmlLink);
 
+    //[OperationContract]
+    //string Busqueda(string Producto, List<GNB_PRODUCTOS> ListaProductos);
 
-
+    //[OperationContract]
+    //string ConsultaXML(string xmlLink);
 }
 
 

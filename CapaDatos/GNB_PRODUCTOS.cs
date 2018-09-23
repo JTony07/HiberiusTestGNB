@@ -14,9 +14,9 @@ namespace CapaDatos
     
     public partial class GNB_PRODUCTOS
     {
-        public int ID_PRODUCTOS { get; set; }
+        public int ID_PRODUCTS { get; set; }
         public string SKU { get; set; }
-        public decimal AMMOUNT { get; set; }
+        public decimal AMOUNT { get; set; }
         public string CURRENCY { get; set; }
     }
 }

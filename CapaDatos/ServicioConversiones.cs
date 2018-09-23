@@ -11,7 +11,8 @@ namespace CapaDatos
         //se agregan las conversiones a la base de datos
         public void AgregarConversiones(GNB_CONVERSIONES pConversion)
         {
-            BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
+            GNB_BDEntities pEntidad = new GNB_BDEntities();
+            //BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
             pEntidad.GNB_CONVERSIONES.Add(pConversion); //se agregan los elementos a la tabla GNB_CONVERSIONES
             pEntidad.SaveChanges(); //se guardan los cambios en la base de datos
         }
@@ -19,7 +20,8 @@ namespace CapaDatos
         //se actualizan las conversiones en la base de datos
         public void ActualizarConversiones(GNB_CONVERSIONES pConversion)
         {
-            BD_GNBEntities pEntidad = new BD_GNBEntities(); // se apunta al a base de datos
+            GNB_BDEntities pEntidad = new GNB_BDEntities();
+            //BD_GNBEntities pEntidad = new BD_GNBEntities(); // se apunta al a base de datos
             //se busca mediante una consulta donde los ID_CONVERSION coincidan y entonces se actualiza si existe coincidencia
             //esto permite que si existe un cambio en el recurso de HEROKU la base de datos se actualice
             //EL ID_CONVERSION ES UN DATO AUTO INCREMENTABLE POR LO TANTO MANTIENE EL MISMO ORDEN DEL RECURSO HEROKU 
@@ -41,8 +43,20 @@ namespace CapaDatos
         //se buscan todos los productos de la tabla GNB_CONVERSIONES
         public List<GNB_CONVERSIONES> ObtenerConversiones()
         {
-            BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
+            GNB_BDEntities pEntidad = new GNB_BDEntities();
+            //BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
             return pEntidad.GNB_CONVERSIONES.ToList<GNB_CONVERSIONES>(); // se convierten todos los elementos a una lista
+        }
+
+        /// <summary>
+        /// Procedimiento que limpia todos los elementos dentro de la tabla en la base de datos
+        /// </summary>
+        public void LimpiarConversiones()
+        {
+            GNB_BDEntities pEntidad = new GNB_BDEntities(); //se crea una entidad que tenga las caracteristicas de la tabla
+            var Todos = from c in pEntidad.GNB_CONVERSIONES select c; //seleccionan todos los objetos dentro de la tabla actual
+            pEntidad.GNB_CONVERSIONES.RemoveRange(Todos); //se eliminan todos los elementos encontrados
+            pEntidad.SaveChanges(); // se guardan los cambios
         }
     }
 }
