@@ -53,6 +53,9 @@ public interface IService
 
     //[OperationContract]
     //string ConsultaXML(string xmlLink);
+
+    [OperationContract]
+    string ListaTransacciones(string mTransaccionesXML);
 }
 
 

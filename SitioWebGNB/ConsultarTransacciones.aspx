@@ -17,7 +17,9 @@
 &nbsp;<asp:Label ID="Label1" runat="server" Text="Busque las ventas de un articulo"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="TextBox1" runat="server" style="margin-left: 0px"></asp:TextBox>
-            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<asp:DropDownList ID="DropDownList1" runat="server">
+            </asp:DropDownList>
+            &nbsp;
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Busqueda" />
             <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

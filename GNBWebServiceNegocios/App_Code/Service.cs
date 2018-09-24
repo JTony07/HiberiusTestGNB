@@ -377,4 +377,65 @@ public class Service : IService
         pServicioTrnasacciones.LimpiarProductos();
     }
 
+    public string ListaTransacciones(string mTransaccionesXML)
+    {
+        XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
+        StringReader lector = new StringReader(mTransaccionesXML);
+        TransacCollection pTransaccionesXML = (TransacCollection)pSerializador.Deserialize(lector);
+
+        TransacCollection pTransaccionesExtraidas = new TransacCollection();
+
+        NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
+        proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
+
+        //foreach(Transac Fila in pTransaccionesXML)
+        //{
+        //    foreach(Transac FilaInterna in pTransaccionesExtraidas)
+        //    {
+
+        //    }
+
+        //}
+ 
+        for (int index1 = 0; index1 < pTransaccionesXML.Count; index1++)
+        {
+            Transac Fila = pTransaccionesXML.ElementAt(index1); 
+            for (int index2 = 0; index2 <= pTransaccionesExtraidas.Count; index2++)
+            {
+
+                if (pTransaccionesExtraidas.Count == 0)
+                {
+                    Transac FilaAuxiliar = new Transac();
+                    FilaAuxiliar.Id_Product = Fila.Id_Product;
+                    FilaAuxiliar.Sku = Fila.Sku;
+                    FilaAuxiliar.Amount = Fila.Amount;
+                    FilaAuxiliar.Currency = Fila.Currency;
+                    pTransaccionesExtraidas.Add(FilaAuxiliar);
+                    break;
+                }
+                else if (index2 == pTransaccionesExtraidas.Count) break;
+                else
+                {
+                    
+                    Transac FilaInterna = pTransaccionesExtraidas.ElementAt(index2);
+                    
+                    if (Fila.Sku.ToString() != FilaInterna.Sku.ToString())
+                    {
+                        FilaInterna.Id_Product = Fila.Id_Product;
+                        FilaInterna.Sku = Fila.Sku;
+                        FilaInterna.Amount = Fila.Amount;
+                        FilaInterna.Currency = Fila.Currency;
+                        pTransaccionesExtraidas.Add(FilaInterna);
+                        break;
+                    }
+                }
+
+                
+            }
+        }
+    
+        StringWriter escritor = new StringWriter();
+        pSerializador.Serialize(escritor, pTransaccionesExtraidas);
+        return escritor.ToString();
+    }
 }

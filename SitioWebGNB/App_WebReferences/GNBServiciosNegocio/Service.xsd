@@ -123,4 +123,18 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="ListaTransacciones">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mTransaccionesXML" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListaTransaccionesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ListaTransaccionesResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
