@@ -12,9 +12,9 @@ namespace CapaDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class GNB_PRODUCTOS
+    public partial class GNB_TRANSAC
     {
-        public int ID_PRODUCTS { get; set; }
+        public int ID_PRODUCT { get; set; }
         public string SKU { get; set; }
         public decimal AMOUNT { get; set; }
         public string CURRENCY { get; set; }

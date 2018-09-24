@@ -13,10 +13,10 @@ namespace CapaDatos
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GNB_BDEntities : DbContext
+    public partial class GNB_BDEntities1 : DbContext
     {
-        public GNB_BDEntities()
-            : base("name=GNB_BDEntities")
+        public GNB_BDEntities1()
+            : base("name=GNB_BDEntities1")
         {
         }
     
@@ -26,6 +26,6 @@ namespace CapaDatos
         }
     
         public virtual DbSet<GNB_CONVERSIONES> GNB_CONVERSIONES { get; set; }
-        public virtual DbSet<GNB_PRODUCTOS> GNB_PRODUCTOS { get; set; }
+        public virtual DbSet<GNB_TRANSAC> GNB_TRANSAC { get; set; }
     }
 }

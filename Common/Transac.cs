@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace Common
 {
     [Serializable]
-    public class Productos
+    public class Transac
     {
-        public int Id_Productos { get; set; }
+        public int Id_Product { get; set; }
         public string Sku { get; set; }
-        public double Ammount { get; set; }
+        public double Amount { get; set; }
         public string Currency { get; set; }
     }
 }

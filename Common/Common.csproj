@@ -42,8 +42,8 @@
   <ItemGroup>
     <Compile Include="Conversiones.cs" />
     <Compile Include="ConversionesCollection.cs" />
-    <Compile Include="Productos.cs" />
-    <Compile Include="ProductosCollection.cs" />
+    <Compile Include="Transac.cs" />
+    <Compile Include="TransacCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

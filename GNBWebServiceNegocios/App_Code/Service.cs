@@ -38,27 +38,27 @@ public class Service : IService
         pServicioConversiones.ActualizarConversiones(pDatos);
     }
 
-    public void ActualizarProductos(string mP)
+    public void ActualizarTransacciones(string mP)
     {
         //objeto que recibira los elementos serializados
-        XmlSerializer pSerializador = new XmlSerializer(typeof(Productos));
+        XmlSerializer pSerializador = new XmlSerializer(typeof(Transac));
         //se crea un lector el cual recibira los datos des-serializados
         StringReader lector = new StringReader(mP);
         //se castea el des-serializador y se obtienen los elementos
-        Productos pProductos = (Productos)pSerializador.Deserialize(lector);
+        Transac pTransac = (Transac)pSerializador.Deserialize(lector);
         //se crea un objeto de clase ServicioProductos 
-        ServicioProductos pServicioProductos = new ServicioProductos();
+        ServicioTransacciones pServicioProductos = new ServicioTransacciones();
         //se instancea la tabla que contiene los campos a modificar
-        GNB_PRODUCTOS pDatos = new GNB_PRODUCTOS();
+        GNB_TRANSAC pDatos = new GNB_TRANSAC();
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
         //se almacenan los datos dentro de los campos correspondientes
-        pDatos.ID_PRODUCTS = pProductos.Id_Productos;
+        pDatos.ID_PRODUCT = pTransac.Id_Product;
         //pDatos.ID_PRODUCTOS = pProductos.Id_Productos;
-        pDatos.SKU = pProductos.Sku;
-        pDatos.AMOUNT = Convert.ToDecimal(pProductos.Ammount, proveedorDecimal);
+        pDatos.SKU = pTransac.Sku;
+        pDatos.AMOUNT = Convert.ToDecimal(pTransac.Amount, proveedorDecimal);
         //pDatos.AMMOUNT = Convert.ToDecimal(pProductos.Ammount);
-        pDatos.CURRENCY = pProductos.Currency;
+        pDatos.CURRENCY = pTransac.Currency;
         //se ACTUALIZAN los productos al servicio
         pServicioProductos.ActualizarProductos(pDatos);
     }
@@ -87,27 +87,27 @@ public class Service : IService
         pServicioConversiones.AgregarConversiones(pDatos);
     }
 
-    public void AgregarProductos(string mP)
+    public void AgregarTransacciones(string mP)
     {
         //objeto que recibira los elementos serializados
-        XmlSerializer pSerializador = new XmlSerializer(typeof(Productos));
+        XmlSerializer pSerializador = new XmlSerializer(typeof(Transac));
         //se crea un lector el cual recibira los datos des-serializados
         StringReader lector = new StringReader(mP);
         //se castea el des-serializador y se obtienen los elementos
-        Productos pProductos = (Productos)pSerializador.Deserialize(lector);
+        Transac pTransac = (Transac)pSerializador.Deserialize(lector);
         //se crea un objeto de clase ServicioProductos 
-        ServicioProductos pServicioProductos = new ServicioProductos();
+        ServicioTransacciones pServicioProductos = new ServicioTransacciones();
         //se instancea la tabla que contiene los campos a modificar
-        GNB_PRODUCTOS pDatos = new GNB_PRODUCTOS();
+        GNB_TRANSAC pDatos = new GNB_TRANSAC();
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
         //se almacenan los datos dentro de los campos correspondientes
-        pDatos.ID_PRODUCTS = pProductos.Id_Productos;
+        pDatos.ID_PRODUCT = pTransac.Id_Product;
         //pDatos.ID_PRODUCTOS = pProductos.Id_Productos;
-        pDatos.SKU = pProductos.Sku;
-        pDatos.AMOUNT = Convert.ToDecimal(pProductos.Ammount, proveedorDecimal); 
+        pDatos.SKU = pTransac.Sku;
+        pDatos.AMOUNT = Convert.ToDecimal(pTransac.Amount, proveedorDecimal); 
         //pDatos.AMMOUNT = Convert.ToDecimal(pProductos.Ammount);
-        pDatos.CURRENCY = pProductos.Currency;
+        pDatos.CURRENCY = pTransac.Currency;
         //se agregan los productos al servicio
         pServicioProductos.AgregarProducto(pDatos);
     }
@@ -145,25 +145,25 @@ public class Service : IService
     }
 
     //posee la misma logica que el ObtenerConversiones()
-    public string ObtenerProductos()
+    public string ObtenerTransacciones()
     {
-        ServicioProductos pServicioProductos = new ServicioProductos();
-        List<GNB_PRODUCTOS> pProductos = pServicioProductos.ObtenerProductos();
-        ProductosCollection pProductosCollection = new ProductosCollection();
+        ServicioTransacciones pServicioProductos = new ServicioTransacciones();
+        List<GNB_TRANSAC> pProductos = pServicioProductos.ObtenerProductos();
+        TransacCollection pProductosCollection = new TransacCollection();
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
-        foreach (GNB_PRODUCTOS indice in pProductos)
+        foreach (GNB_TRANSAC indice in pProductos)
         {
-            Productos iComun = new Productos();
-            iComun.Id_Productos = indice.ID_PRODUCTS;
+            Transac iComun = new Transac();
+            iComun.Id_Product = indice.ID_PRODUCT;
             //iComun.Id_Productos = indice.ID_PRODUCTOS;
             iComun.Sku = indice.SKU;
-            iComun.Ammount = Convert.ToDouble(indice.AMOUNT, proveedorDecimal);
+            iComun.Amount = Convert.ToDouble(indice.AMOUNT, proveedorDecimal);
             //iComun.Ammount = Convert.ToDouble(indice.AMMOUNT);
             iComun.Currency = indice.CURRENCY;
             pProductosCollection.Add(iComun);
         }
-        XmlSerializer pSerializador = new XmlSerializer(typeof(ProductosCollection));
+        XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
         StringWriter escritor = new StringWriter();
         pSerializador.Serialize(escritor, pProductosCollection);
         return escritor.ToString();
@@ -224,7 +224,7 @@ public class Service : IService
     }
 
 
-    public void ProductosEnLinea(string xmlLink)
+    public void TransaccionesEnLinea(string xmlLink)
     {
         try
         {   
@@ -235,10 +235,10 @@ public class Service : IService
             //se crea un formateador para indicar si el separador es un punto o una coma en los numeros del RATE
             NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
             proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
-            ServicioProductos pServicioProductos = new ServicioProductos();
-            List<GNB_PRODUCTOS> pProductos = new List<GNB_PRODUCTOS>();
-            List<GNB_PRODUCTOS> TablaProductos = pServicioProductos.ObtenerProductos();
-            GNB_PRODUCTOS pProducto = new GNB_PRODUCTOS();
+            ServicioTransacciones pServicioProductos = new ServicioTransacciones();
+            List<GNB_TRANSAC> pTransacciones = new List<GNB_TRANSAC>();
+            List<GNB_TRANSAC> TablaProductos = pServicioProductos.ObtenerProductos();
+            GNB_TRANSAC pTransac = new GNB_TRANSAC();
 
             for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
             {
@@ -248,14 +248,14 @@ public class Service : IService
                 XmlAttribute Atributo1 = Dato.GetAttributeNode("sku");
                 XmlAttribute Atributo2 = Dato.GetAttributeNode("amount");
                 XmlAttribute Atributo3 = Dato.GetAttributeNode("currency");
-                pProducto.ID_PRODUCTS = pNodos + 1;
+                pTransac.ID_PRODUCT = pNodos + 1;
                 //pProducto.ID_PRODUCTOS = pNodos + 1;
-                pProducto.SKU = Atributo1.InnerText.ToString();
-                pProducto.AMOUNT = Convert.ToDecimal(Atributo2.InnerText.ToString(), proveedorDecimal);
+                pTransac.SKU = Atributo1.InnerText.ToString();
+                pTransac.AMOUNT = Convert.ToDecimal(Atributo2.InnerText.ToString(), proveedorDecimal);
                 //pProducto.AMMOUNT = Convert.ToDecimal(Atributo2.InnerText.ToString(), proveedorDecimal);
-                pProducto.CURRENCY = Atributo3.InnerText.ToString();
+                pTransac.CURRENCY = Atributo3.InnerText.ToString();
 
-                if (TablaProductos.Count == 0) pServicioProductos.AgregarProducto(pProducto);
+                if (TablaProductos.Count == 0) pServicioProductos.AgregarProducto(pTransac);
                 //else pServicioProductos.ActualizarProductos(pProducto);
             }
         }
@@ -265,64 +265,64 @@ public class Service : IService
         }
     }
 
-    public string BuscarProductos(string mP, string Busqueda)
+    public string BuscarTransacciones(string mP, string Busqueda)
     {
-        Productos ProductoABuscar = new Productos();
-        ProductoABuscar.Sku = Busqueda;
+        Transac TransaccionABuscar = new Transac();
+        TransaccionABuscar.Sku = Busqueda;
 
-        XmlSerializer pSerializador = new XmlSerializer(typeof(ProductosCollection));
+        XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
         StringReader lector = new StringReader(mP);
-        ProductosCollection pProductosEncontrados = (ProductosCollection)pSerializador.Deserialize(lector);
-        ProductosCollection pProductosCoincidencia = new ProductosCollection();
+        TransacCollection pTransaccionesEncontradas = (TransacCollection)pSerializador.Deserialize(lector);
+        TransacCollection pTransaccionesCoincidiencias = new TransacCollection();
 
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
 
-        foreach (Productos indice in pProductosEncontrados)
+        foreach (Transac indice in pTransaccionesEncontradas)
         {
-            Productos iComun = new Productos();
-            if(ProductoABuscar.Sku == indice.Sku)
+            Transac iComun = new Transac();
+            if(TransaccionABuscar.Sku == indice.Sku)
             {
-                iComun.Id_Productos = indice.Id_Productos;
+                iComun.Id_Product = indice.Id_Product;
                 iComun.Sku = indice.Sku;
-                iComun.Ammount = Convert.ToDouble(indice.Ammount, proveedorDecimal);
+                iComun.Amount = Convert.ToDouble(indice.Amount, proveedorDecimal);
                 iComun.Currency = indice.Currency;
-                pProductosCoincidencia.Add(iComun);
+                pTransaccionesCoincidiencias.Add(iComun);
             }
         }
 
         StringWriter escritor = new StringWriter();
-        pSerializador.Serialize(escritor, pProductosCoincidencia);
+        pSerializador.Serialize(escritor, pTransaccionesCoincidiencias);
         return escritor.ToString();
     }
 
-    public string ConsultaProductos(string Producto, List<GNB_PRODUCTOS> ListaProductos)
-    {
-        ServicioProductos pServicioProductos = new ServicioProductos();
+    //public string ConsultaProductos(string Producto, List<GNB_TRANSAC> ListaProductos)
+    //{
+    //    ServicioTransacciones pServicioProductos = new ServicioTransacciones();
 
-        ProductosCollection pProductosCollection = new ProductosCollection();
+    //    TransacCollection pProductosCollection = new TransacCollection();
 
-        NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-        proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
+    //    NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
+    //    proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
 
-        foreach (GNB_PRODUCTOS indice in ListaProductos)
-        {
-            Productos iComun = new Productos();
-            if(Producto == indice.SKU.ToString())
-            {
-                iComun.Id_Productos = indice.ID_PRODUCTS;
-                iComun.Sku = indice.SKU;
-                iComun.Ammount = Convert.ToDouble(indice.AMOUNT, proveedorDecimal);
-                iComun.Currency = indice.CURRENCY;
-                pProductosCollection.Add(iComun);
-            }
-        }
+    //    foreach (GNB_PRODUCTOS indice in ListaProductos)
+    //    {
+    //        Transac iComun = new Transac();
+    //        if(Producto == indice.SKU.ToString())
+    //        {
+    //            iComun.Id_Productos = indice.ID_PRODUCTS;
+    //            iComun.Sku = indice.SKU;
+    //            iComun.Ammount = Convert.ToDouble(indice.AMOUNT, proveedorDecimal);
+    //            iComun.Currency = indice.CURRENCY;
+    //            pProductosCollection.Add(iComun);
+    //        }
+    //    }
 
-        XmlSerializer pSerializador = new XmlSerializer(typeof(ProductosCollection));
-        StringWriter escritor = new StringWriter();
-        pSerializador.Serialize(escritor, pProductosCollection);
-        return escritor.ToString();
-    }
+    //    XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
+    //    StringWriter escritor = new StringWriter();
+    //    pSerializador.Serialize(escritor, pProductosCollection);
+    //    return escritor.ToString();
+    //}
 
 
     /// <summary>
@@ -341,11 +341,11 @@ public class Service : IService
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo(); //tipo de decimal
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador decimal
 
-        ProductosCollection pProductos = new ProductosCollection();
+        TransacCollection pTransaccionesCollection = new TransacCollection();
 
         for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
         {
-            Productos pProducto = new Productos();
+            Transac pTransac = new Transac();
 
             XmlNode NodoActual = Nodos.Item(pNodos);
             XmlElement Dato = (XmlElement)NodoActual;
@@ -353,17 +353,17 @@ public class Service : IService
             XmlAttribute Atributo2 = Dato.GetAttributeNode("amount");
             XmlAttribute Atributo3 = Dato.GetAttributeNode("currency");
 
-            pProducto.Id_Productos = pNodos + 1;
-            pProducto.Sku = Atributo1.InnerText.ToString();
-            pProducto.Ammount = Convert.ToDouble(Atributo2.InnerText.ToString(), proveedorDecimal);
-            pProducto.Currency = Atributo3.InnerText.ToString();
+            pTransac.Id_Product = pNodos + 1;
+            pTransac.Sku = Atributo1.InnerText.ToString();
+            pTransac.Amount = Convert.ToDouble(Atributo2.InnerText.ToString(), proveedorDecimal);
+            pTransac.Currency = Atributo3.InnerText.ToString();
 
-            pProductos.Add(pProducto);
+            pTransaccionesCollection.Add(pTransac);
         }
 
-        XmlSerializer pSerializador = new XmlSerializer(typeof(ProductosCollection));
+        XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
         StringWriter escritor = new StringWriter();
-        pSerializador.Serialize(escritor, pProductos);
+        pSerializador.Serialize(escritor, pTransaccionesCollection);
         return escritor.ToString();
     }
 
@@ -371,10 +371,10 @@ public class Service : IService
     /// <summary>
     /// elimina todos los elementos de la tabla productos
     /// </summary>
-    public void LimpiarProductos()
+    public void LimpiarTransacciones()
     {
-        ServicioProductos pServicioProductos = new ServicioProductos();
-        pServicioProductos.LimpiarProductos();
+        ServicioTransacciones pServicioTrnasacciones = new ServicioTransacciones();
+        pServicioTrnasacciones.LimpiarProductos();
     }
 
 }

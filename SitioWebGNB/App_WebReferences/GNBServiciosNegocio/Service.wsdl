@@ -6,23 +6,23 @@
       <xsd:import schemaLocation="http://localhost:59365/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IService_AgregarProductos_InputMessage">
-    <wsdl:part name="parameters" element="tns:AgregarProductos" />
+  <wsdl:message name="IService_AgregarTransacciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:AgregarTransacciones" />
   </wsdl:message>
-  <wsdl:message name="IService_AgregarProductos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AgregarProductosResponse" />
+  <wsdl:message name="IService_AgregarTransacciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AgregarTransaccionesResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_ActualizarProductos_InputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarProductos" />
+  <wsdl:message name="IService_ActualizarTransacciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarTransacciones" />
   </wsdl:message>
-  <wsdl:message name="IService_ActualizarProductos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarProductosResponse" />
+  <wsdl:message name="IService_ActualizarTransacciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarTransaccionesResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_ObtenerProductos_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerProductos" />
+  <wsdl:message name="IService_ObtenerTransacciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTransacciones" />
   </wsdl:message>
-  <wsdl:message name="IService_ObtenerProductos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerProductosResponse" />
+  <wsdl:message name="IService_ObtenerTransacciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTransaccionesResponse" />
   </wsdl:message>
   <wsdl:message name="IService_AgregarConversiones_InputMessage">
     <wsdl:part name="parameters" element="tns:AgregarConversiones" />
@@ -42,11 +42,11 @@
   <wsdl:message name="IService_ObtenerConversiones_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerConversionesResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_BuscarProductos_InputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarProductos" />
+  <wsdl:message name="IService_BuscarTransacciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarTransacciones" />
   </wsdl:message>
-  <wsdl:message name="IService_BuscarProductos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarProductosResponse" />
+  <wsdl:message name="IService_BuscarTransacciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarTransaccionesResponse" />
   </wsdl:message>
   <wsdl:message name="IService_ConsultaXML_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultaXML" />
@@ -54,30 +54,30 @@
   <wsdl:message name="IService_ConsultaXML_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultaXMLResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_LimpiarProductos_InputMessage">
-    <wsdl:part name="parameters" element="tns:LimpiarProductos" />
+  <wsdl:message name="IService_LimpiarTransacciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:LimpiarTransacciones" />
   </wsdl:message>
-  <wsdl:message name="IService_LimpiarProductos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:LimpiarProductosResponse" />
+  <wsdl:message name="IService_LimpiarTransacciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LimpiarTransaccionesResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_ProductosEnLinea_InputMessage">
-    <wsdl:part name="parameters" element="tns:ProductosEnLinea" />
+  <wsdl:message name="IService_TransaccionesEnLinea_InputMessage">
+    <wsdl:part name="parameters" element="tns:TransaccionesEnLinea" />
   </wsdl:message>
-  <wsdl:message name="IService_ProductosEnLinea_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ProductosEnLineaResponse" />
+  <wsdl:message name="IService_TransaccionesEnLinea_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TransaccionesEnLineaResponse" />
   </wsdl:message>
   <wsdl:portType name="IService">
-    <wsdl:operation name="AgregarProductos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/AgregarProductos" message="tns:IService_AgregarProductos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/AgregarProductosResponse" message="tns:IService_AgregarProductos_OutputMessage" />
+    <wsdl:operation name="AgregarTransacciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/AgregarTransacciones" message="tns:IService_AgregarTransacciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/AgregarTransaccionesResponse" message="tns:IService_AgregarTransacciones_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ActualizarProductos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/ActualizarProductos" message="tns:IService_ActualizarProductos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/ActualizarProductosResponse" message="tns:IService_ActualizarProductos_OutputMessage" />
+    <wsdl:operation name="ActualizarTransacciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ActualizarTransacciones" message="tns:IService_ActualizarTransacciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ActualizarTransaccionesResponse" message="tns:IService_ActualizarTransacciones_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerProductos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerProductos" message="tns:IService_ObtenerProductos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerProductosResponse" message="tns:IService_ObtenerProductos_OutputMessage" />
+    <wsdl:operation name="ObtenerTransacciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerTransacciones" message="tns:IService_ObtenerTransacciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerTransaccionesResponse" message="tns:IService_ObtenerTransacciones_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AgregarConversiones">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/AgregarConversiones" message="tns:IService_AgregarConversiones_InputMessage" />
@@ -91,27 +91,27 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService/ObtenerConversiones" message="tns:IService_ObtenerConversiones_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/ObtenerConversionesResponse" message="tns:IService_ObtenerConversiones_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarProductos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/BuscarProductos" message="tns:IService_BuscarProductos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/BuscarProductosResponse" message="tns:IService_BuscarProductos_OutputMessage" />
+    <wsdl:operation name="BuscarTransacciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/BuscarTransacciones" message="tns:IService_BuscarTransacciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/BuscarTransaccionesResponse" message="tns:IService_BuscarTransacciones_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ConsultaXML">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/ConsultaXML" message="tns:IService_ConsultaXML_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/ConsultaXMLResponse" message="tns:IService_ConsultaXML_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="LimpiarProductos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/LimpiarProductos" message="tns:IService_LimpiarProductos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/LimpiarProductosResponse" message="tns:IService_LimpiarProductos_OutputMessage" />
+    <wsdl:operation name="LimpiarTransacciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/LimpiarTransacciones" message="tns:IService_LimpiarTransacciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/LimpiarTransaccionesResponse" message="tns:IService_LimpiarTransacciones_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ProductosEnLinea">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/ProductosEnLinea" message="tns:IService_ProductosEnLinea_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/ProductosEnLineaResponse" message="tns:IService_ProductosEnLinea_OutputMessage" />
+    <wsdl:operation name="TransaccionesEnLinea">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/TransaccionesEnLinea" message="tns:IService_TransaccionesEnLinea_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/TransaccionesEnLineaResponse" message="tns:IService_TransaccionesEnLinea_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="AgregarProductos">
-      <soap:operation soapAction="http://tempuri.org/IService/AgregarProductos" style="document" />
+    <wsdl:operation name="AgregarTransacciones">
+      <soap:operation soapAction="http://tempuri.org/IService/AgregarTransacciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -119,8 +119,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ActualizarProductos">
-      <soap:operation soapAction="http://tempuri.org/IService/ActualizarProductos" style="document" />
+    <wsdl:operation name="ActualizarTransacciones">
+      <soap:operation soapAction="http://tempuri.org/IService/ActualizarTransacciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -128,8 +128,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerProductos">
-      <soap:operation soapAction="http://tempuri.org/IService/ObtenerProductos" style="document" />
+    <wsdl:operation name="ObtenerTransacciones">
+      <soap:operation soapAction="http://tempuri.org/IService/ObtenerTransacciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -164,8 +164,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarProductos">
-      <soap:operation soapAction="http://tempuri.org/IService/BuscarProductos" style="document" />
+    <wsdl:operation name="BuscarTransacciones">
+      <soap:operation soapAction="http://tempuri.org/IService/BuscarTransacciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -182,8 +182,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="LimpiarProductos">
-      <soap:operation soapAction="http://tempuri.org/IService/LimpiarProductos" style="document" />
+    <wsdl:operation name="LimpiarTransacciones">
+      <soap:operation soapAction="http://tempuri.org/IService/LimpiarTransacciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -191,8 +191,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ProductosEnLinea">
-      <soap:operation soapAction="http://tempuri.org/IService/ProductosEnLinea" style="document" />
+    <wsdl:operation name="TransaccionesEnLinea">
+      <soap:operation soapAction="http://tempuri.org/IService/TransaccionesEnLinea" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
