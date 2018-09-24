@@ -20,8 +20,22 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
 
         //pServicio.ConversionesEnLinea(uriHerokuC.ToString());
         
-        pServicio.ProductosEnLinea(uriHerokuP.ToString());
+        //pServicio.TransaccionesEnLinea(uriHerokuP.ToString()); //ACTUALIZA LA BASE DE DATOS
         //pServicio.LimpiarProductos(); FUNCIONA
+
+        string ResultadoXML = pServicio.ConsultaXML(uriHerokuP.ToString());
+
+        string prueba = pServicio.ListaTransacciones(ResultadoXML);
+
+        XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
+        StringReader lector = new StringReader(prueba);
+        TransacCollection ProductosEncontrados = (TransacCollection)pSerializador.Deserialize(lector);
+        DropDownList1.DataSource = ProductosEncontrados;
+        DropDownList1.DataValueField = "Sku";
+        DropDownList1.DataBind();
+
+
+
     }
 
     protected void Button1_Click(object sender, EventArgs e)
@@ -31,9 +45,16 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
 
         string ResultadoXML = pServicio.ConsultaXML(uriHerokuP.ToString());
 
-        string PruebaResultadoBD = pServicio.ObtenerProductos();
+        string prueba = pServicio.ListaTransacciones(ResultadoXML);
 
-        string ResultadoBusqueda = pServicio.BuscarProductos(PruebaResultadoBD, TextBox1.Text);
+
+        string PruebaResultadoBD = pServicio.ObtenerTransacciones();
+
+        string ResultadoBusqueda = pServicio.BuscarTransacciones(PruebaResultadoBD, TextBox1.Text);
+
+
+
+
 
         XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
         StringReader lector = new StringReader(ResultadoBusqueda);
@@ -41,6 +62,8 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
         TransacCollection ProductosEncontrados = (TransacCollection)pSerializador.Deserialize(lector);
         GridView1.DataSource = ProductosEncontrados;
         GridView1.DataBind();
+
+
 
         //pServicio.ConsultaProductos(uriHerokuP.ToString());
 
@@ -54,4 +77,6 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
         //GridView1.DataSource = ProductosEncontrados;
         //GridView1.DataBind();
     }
+
+    
 }
