@@ -14,117 +14,142 @@ using System.Globalization;
 
 public class Service : IService
 {
+    /// <summary>
+    /// Servicio que permite ACTUALIZAR la tabla GNB_CONVERSIONES con elementos dentro de un String de tipo XML
+    /// </summary>
+    /// <param name="mC">Cadena de caracteres de tipo XML</param>
     public void ActualizarConversiones(string mC)
     {
-        //objeto que recibira los elementos serializados
-        XmlSerializer pSerializador = new XmlSerializer(typeof(Conversiones));
-        //se crea un lector el cual recibira los datos des-serializados
-        StringReader lector = new StringReader(mC);
-        //se castea el des-serializador y se obtienen los elementos
-        Conversiones pConversiones = (Conversiones)pSerializador.Deserialize(lector);
-        //se crea un objeto de clase ServicioProductos 
-        ServicioConversiones pServicioConversiones = new ServicioConversiones();
-        //se instancea la tabla que contiene los campos a modificar
-        GNB_CONVERSIONES pDatos = new GNB_CONVERSIONES();
+        XmlSerializer pSerializador = new XmlSerializer(typeof(Conversiones)); //objeto que recibira los elementos serializados
+        StringReader lector = new StringReader(mC); //se crea un lector el cual recibira los datos des-serializados
+        Conversiones pConversiones = (Conversiones)pSerializador.Deserialize(lector); //se castea el des-serializador y se obtienen los elementos
+        ServicioConversiones pServicioConversiones = new ServicioConversiones(); //se crea un objeto de clase ServicioProductos 
+        GNB_CONVERSIONES pDatos = new GNB_CONVERSIONES(); //se instancea la tabla que contiene los campos a modificar
+
+
+        //PROVEEDOR DE SIGNO DECIMAL
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-        proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
-        //se almacenan los datos dentro de los campos correspondientes
+        proveedorDecimal.NumberDecimalSeparator = "."; 
+
+        //ALMACENAMIENTO DE VARIABLES DESERIALIZADAS
         pDatos.ID_CONVERSION = pConversiones.Id_Conversion;
         pDatos.FROM_CURRENCY = pConversiones.From_Currency;
         pDatos.TO_CURRENCY = pConversiones.To_Currency;
         pDatos.RATE = Convert.ToDecimal(pConversiones.Rate, proveedorDecimal);
-        //pDatos.RATE = Convert.ToString(pConversiones.Rate); //me equivoque al crear la columna deberia ser "decimal" o "money" ya que se esta trabajando con tasas de conversion de dinero
+
         //se ACTUALIZAN las conversiones al servicio
         pServicioConversiones.ActualizarConversiones(pDatos);
     }
 
+    /// <summary>
+    /// Servicio que permite ACTUALIZAR la tabla GNB_TRANSAC con elementos dentro de un String de tipo XML
+    /// </summary>
+    /// <param name="mC">Cadena de caracteres de tipo XML</param>
     public void ActualizarTransacciones(string mP)
     {
-        //objeto que recibira los elementos serializados
-        XmlSerializer pSerializador = new XmlSerializer(typeof(Transac));
-        //se crea un lector el cual recibira los datos des-serializados
-        StringReader lector = new StringReader(mP);
-        //se castea el des-serializador y se obtienen los elementos
-        Transac pTransac = (Transac)pSerializador.Deserialize(lector);
-        //se crea un objeto de clase ServicioProductos 
-        ServicioTransacciones pServicioProductos = new ServicioTransacciones();
-        //se instancea la tabla que contiene los campos a modificar
-        GNB_TRANSAC pDatos = new GNB_TRANSAC();
+        
+        XmlSerializer pSerializador = new XmlSerializer(typeof(Transac));//objeto que recibira los elementos serializados
+        StringReader lector = new StringReader(mP);//se crea un lector el cual recibira los datos des-serializados
+        Transac pTransac = (Transac)pSerializador.Deserialize(lector); //se castea el des-serializador y se obtienen los elementos
+        ServicioTransacciones pServicioProductos = new ServicioTransacciones(); //se crea un objeto de clase ServicioProductos 
+        GNB_TRANSAC pDatos = new GNB_TRANSAC(); //se instancea la tabla que contiene los campos a modificar
+
+
+        //PROVEEDOR DE SIGNO DECIMAL
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-        proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
-        //se almacenan los datos dentro de los campos correspondientes
+        proveedorDecimal.NumberDecimalSeparator = ".";
+
+        //ALMACENAMIENTO DE VARIABLES DESERIALIZADAS
         pDatos.ID_PRODUCT = pTransac.Id_Product;
-        //pDatos.ID_PRODUCTOS = pProductos.Id_Productos;
         pDatos.SKU = pTransac.Sku;
         pDatos.AMOUNT = Convert.ToDecimal(pTransac.Amount, proveedorDecimal);
-        //pDatos.AMMOUNT = Convert.ToDecimal(pProductos.Ammount);
         pDatos.CURRENCY = pTransac.Currency;
+        
         //se ACTUALIZAN los productos al servicio
-        pServicioProductos.ActualizarProductos(pDatos);
+        pServicioProductos.ActualizarTransaccion(pDatos);
     }
 
+    /// <summary>
+    /// Servicio que permite AGREGAR la tabla GNB_CONVERSIONES con elementos dentro de un String de tipo XML
+    /// </summary>
+    /// <param name="mC">Cadena de caracteres de tipo XML</param>
     public void AgregarConversiones(string mC)
     {
-        //objeto que recibira los elementos serializados
-        XmlSerializer pSerializador = new XmlSerializer(typeof(Conversiones));
-        //se crea un lector el cual recibira los datos des-serializados
-        StringReader lector = new StringReader(mC);
-        //se castea el des-serializador y se obtienen los elementos
-        Conversiones pConversiones = (Conversiones)pSerializador.Deserialize(lector);
-        //se crea un objeto de clase ServicioProductos 
-        ServicioConversiones pServicioConversiones = new ServicioConversiones();
-        //se instancea la tabla que contiene los campos a modificar
-        GNB_CONVERSIONES pDatos = new GNB_CONVERSIONES();
+        ServicioConversiones pServicioProductos = new ServicioConversiones(); //servicio que permite comunicar con BD
+
+        XmlSerializer pSerializador = new XmlSerializer(typeof(ConversionesCollection)); //objeto que recibira los elementos serializados
+        StringReader lector = new StringReader(mC); //se crea un lector el cual recibira los datos des-serializados
+        ConversionesCollection pConversiones = (ConversionesCollection)pSerializador.Deserialize(lector); //se castea el des-serializador y se obtienen los elementos
+
+        //PROVEEDOR DE SIGNO DECIMAL
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-        proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
-        //se almacenan los datos dentro de los campos correspondientes
-        pDatos.ID_CONVERSION = pConversiones.Id_Conversion;
-        pDatos.FROM_CURRENCY = pConversiones.From_Currency;
-        pDatos.TO_CURRENCY = pConversiones.To_Currency;
-        pDatos.RATE = Convert.ToDecimal(pConversiones.Rate,proveedorDecimal);
-        //pDatos.RATE = Convert.ToString(pConversiones.Rate); //me equivoque al crear la columna deberia ser "decimal" o "money" ya que se esta trabajando con tasas de conversion de dinero
-        //se agregan las conversiones al servicio
-        pServicioConversiones.AgregarConversiones(pDatos);
+        proveedorDecimal.NumberDecimalSeparator = ".";
+
+        for(int indice = 0; indice < pConversiones.Count; indice++)
+        {
+            GNB_CONVERSIONES pDatos = new GNB_CONVERSIONES(); //se instancea la tabla que contiene los campos a modificar
+            Conversiones pConversion = pConversiones.ElementAt(indice);
+
+            //ALMACENAMIENTO DE VARIABLES DESERIALIZADAS
+            pDatos.ID_CONVERSION = indice + 1;
+            pDatos.FROM_CURRENCY = pConversion.From_Currency;
+            pDatos.TO_CURRENCY = pConversion.To_Currency;
+            pDatos.RATE = Convert.ToDecimal(pConversion.Rate, proveedorDecimal);
+            
+            //se agregan los productos al servicio
+            pServicioProductos.AgregarConversiones(pDatos);
+        }
     }
 
+    /// <summary>
+    /// Servicio que permite AGREGAR la tabla GNB_TRANSAC con elementos dentro de un String de tipo XML
+    /// </summary>
+    /// <param name="mC">Cadena de caracteres de tipo XML</param>
     public void AgregarTransacciones(string mP)
     {
-        //objeto que recibira los elementos serializados
-        XmlSerializer pSerializador = new XmlSerializer(typeof(Transac));
-        //se crea un lector el cual recibira los datos des-serializados
-        StringReader lector = new StringReader(mP);
-        //se castea el des-serializador y se obtienen los elementos
-        Transac pTransac = (Transac)pSerializador.Deserialize(lector);
-        //se crea un objeto de clase ServicioProductos 
-        ServicioTransacciones pServicioProductos = new ServicioTransacciones();
-        //se instancea la tabla que contiene los campos a modificar
-        GNB_TRANSAC pDatos = new GNB_TRANSAC();
+        ServicioTransacciones pServicioProductos = new ServicioTransacciones(); //servicio que permite comunicar con BD
+
+        XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection)); //objeto que recibira los elementos serializados
+        StringReader lector = new StringReader(mP); //se crea un lector el cual recibira los datos des-serializados
+        TransacCollection pTransacciones = (TransacCollection)pSerializador.Deserialize(lector); //se castea el des-serializador y se obtienen los elementos
+
+        //PROVEEDOR DE SIGNO DECIMAL
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-        proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
-        //se almacenan los datos dentro de los campos correspondientes
-        pDatos.ID_PRODUCT = pTransac.Id_Product;
-        //pDatos.ID_PRODUCTOS = pProductos.Id_Productos;
-        pDatos.SKU = pTransac.Sku;
-        pDatos.AMOUNT = Convert.ToDecimal(pTransac.Amount, proveedorDecimal); 
-        //pDatos.AMMOUNT = Convert.ToDecimal(pProductos.Ammount);
-        pDatos.CURRENCY = pTransac.Currency;
-        //se agregan los productos al servicio
-        pServicioProductos.AgregarProducto(pDatos);
+        proveedorDecimal.NumberDecimalSeparator = ".";
+
+        for (int indice = 0; indice < pTransacciones.Count; indice++)
+        {
+            GNB_TRANSAC pDatos = new GNB_TRANSAC(); //se instancea la tabla que contiene los campos a modificar
+            Transac pTransaccion = pTransacciones.ElementAt(indice);
+
+            //ALMACENAMIENTO DE VARIABLES DESERIALIZADAS
+            pDatos.ID_PRODUCT = indice + 1;
+            pDatos.SKU = pTransaccion.Sku;
+            pDatos.AMOUNT = Convert.ToDecimal(pTransaccion.Amount, proveedorDecimal); 
+            pDatos.CURRENCY = pTransaccion.Currency;
+
+            //se agregan los productos al servicio
+            pServicioProductos.AgregarTransaccion(pDatos);
+        }
     }
 
 
+    /// <summary>
+    /// se OBTIENEN o RECUPERAN todos los elementos dentro de la tabla GNB_CONVERSIONES
+    /// </summary>
+    /// <returns>candena de caracteres XML que contienen los elementos dentro de la tabla</returns>
     public string ObtenerConversiones()
     {
-        //se crea una instancia del servicio 
-        ServicioConversiones pServicioConversiones = new ServicioConversiones();
-        //se crea una lista que almacena los elementos dentro de la tabla
-        List<GNB_CONVERSIONES> pConversiones = pServicioConversiones.ObtenerConversiones();
-        //se crea una instancia del la lista donde deberan estar los elementos de la base de datos
-        ConversionesCollection pConversionesCollection = new ConversionesCollection();
+        ServicioConversiones pServicioConversiones = new ServicioConversiones(); //se crea una instancia del servicio 
+        List<GNB_CONVERSIONES> pConversiones = pServicioConversiones.ObtenerConversiones(); //se crea una lista que almacena los elementos dentro de la tabla
+        ConversionesCollection pConversionesCollection = new ConversionesCollection(); //se crea una instancia del la lista donde deberan estar los elementos de la base de datos
+        
+        //PROVEEDOR DE SIGNO DECIMAL
+        NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
+        proveedorDecimal.NumberDecimalSeparator = "."; 
+
         //se realiza un ciclo donde cada elemento se traspasara desde la base de datos hasta el objeto que lo contendra
         //este objeto es la instancia de tipo "collection"
-        NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-        proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
         foreach (GNB_CONVERSIONES indice in pConversiones)
         {
             Conversiones iComun = new Conversiones();
@@ -134,137 +159,53 @@ public class Service : IService
             iComun.Rate = Convert.ToDouble(indice.RATE,proveedorDecimal);
             pConversionesCollection.Add(iComun);
         }
-        //se crea un serializador de tipo colection (lista)
-        XmlSerializer pSerializador = new XmlSerializer(typeof(ConversionesCollection));
-        //se instancia un nuevo escritor de cadenas
-        StringWriter escritor = new StringWriter();
-        //se serializa la cadena
-        pSerializador.Serialize(escritor, pConversionesCollection);
-        //se retorna el escritor de tipo string
-        return escritor.ToString();
+        
+        
+        XmlSerializer pSerializador = new XmlSerializer(typeof(ConversionesCollection)); //se crea un serializador de tipo colection (lista)
+        StringWriter escritor = new StringWriter();//se instancia un nuevo escritor de cadenas
+        pSerializador.Serialize(escritor, pConversionesCollection);//se serializa la cadena
+        return escritor.ToString(); //se retorna el escritor de tipo string
     }
 
-    //posee la misma logica que el ObtenerConversiones()
+    /// <summary>
+    /// se OBTIENEN o RECUPERAN todos los elementos dentro de la tabla GNB_TRANSAC
+    /// </summary>
+    /// <returns>candena de caracteres XML que contienen los elementos dentro de la tabla</returns>
     public string ObtenerTransacciones()
     {
-        ServicioTransacciones pServicioProductos = new ServicioTransacciones();
-        List<GNB_TRANSAC> pProductos = pServicioProductos.ObtenerProductos();
-        TransacCollection pProductosCollection = new TransacCollection();
+        ServicioTransacciones pServicioProductos = new ServicioTransacciones(); //se crea una instancia del servicio 
+        List<GNB_TRANSAC> pProductos = pServicioProductos.ObtenerTransaccion();//se crea una lista que almacena los elementos dentro de la tabla
+        TransacCollection pProductosCollection = new TransacCollection();//se crea una instancia del la lista donde deberan estar los elementos de la base de datos
+
+        //PROVEEDOR DE SIGNO DECIMAL
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
+
+
+        //se realiza un ciclo donde cada elemento se traspasara desde la base de datos hasta el objeto que lo contendra
+        //este objeto es la instancia de tipo "collection"
         foreach (GNB_TRANSAC indice in pProductos)
         {
             Transac iComun = new Transac();
             iComun.Id_Product = indice.ID_PRODUCT;
-            //iComun.Id_Productos = indice.ID_PRODUCTOS;
             iComun.Sku = indice.SKU;
             iComun.Amount = Convert.ToDouble(indice.AMOUNT, proveedorDecimal);
-            //iComun.Ammount = Convert.ToDouble(indice.AMMOUNT);
             iComun.Currency = indice.CURRENCY;
             pProductosCollection.Add(iComun);
         }
-        XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
-        StringWriter escritor = new StringWriter();
-        pSerializador.Serialize(escritor, pProductosCollection);
-        return escritor.ToString();
+
+        XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));//se crea un serializador de tipo colection (lista)
+        StringWriter escritor = new StringWriter();//se instancia un nuevo escritor de cadenas
+        pSerializador.Serialize(escritor, pProductosCollection);//se serializa la cadena
+        return escritor.ToString(); //se retorna el escritor de tipo string
     }
 
-    public void ConversionesEnLinea(string xmlLink)
-    {
-        try
-        {   //se crea un objeto de Tipo XMLDocument que permite descargar almacenado en cache los datos del servidor
-            XmlDocument DocumentoXml = new XmlDocument();
-            //se carga el archivo del link proporcionado
-            DocumentoXml.Load(xmlLink);
-            //se selecciona el primer elemento padre dentro del XML
-            XmlElement ElementoRaiz = DocumentoXml.DocumentElement;
-            //se revisan los nodos del elemento raiz
-            XmlNodeList Nodos = ElementoRaiz.ChildNodes;
-            //se crea un objeto de tipo collection para almacenar la tabla que se solicita desde heroku
-            ConversionesCollection pConversionesEnLinea = new ConversionesCollection();
-            //se crea una instancia del servicio para consultar si la base de datos esta vacia o llena
-            ServicioConversiones pServicioConversiones = new ServicioConversiones();
-
-            List<GNB_CONVERSIONES> pConversiones = new List<GNB_CONVERSIONES>();
-
-            List<GNB_CONVERSIONES> TablaConversiones = pServicioConversiones.ObtenerConversiones();
-
-            GNB_CONVERSIONES pConversion = new GNB_CONVERSIONES();
-
-            NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-            proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
-
-            //se recorren todos los nodos de la raiz
-            for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
-            {
-                //se crea un objeto de tipo CONVERSIONES que almacenara los datos de cada "rate" en el XML
-                Conversiones pConversionesActuales = new Conversiones();
-                //se selecciona un nodo de la raiz
-                XmlNode NodoActual = Nodos.Item(pNodos);
-                //se extraen todos los datos almacenados dentro del nodo
-                XmlElement Dato = (XmlElement)NodoActual;
-                //se extraen los atributos "from" "to" "rate"
-                XmlAttribute Atributo1 = Dato.GetAttributeNode("from");
-                XmlAttribute Atributo2 = Dato.GetAttributeNode("to");
-                XmlAttribute Atributo3 = Dato.GetAttributeNode("rate");
-                pConversion.ID_CONVERSION = pNodos + 1;
-                pConversion.FROM_CURRENCY = Atributo1.InnerText.ToString();
-                pConversion.TO_CURRENCY = Atributo2.InnerText.ToString();
-                pConversion.RATE = Convert.ToDecimal(Atributo3.InnerText.ToString(), proveedorDecimal);
-                //pConversion.RATE = Atributo3.InnerText.ToString();
-
-                if (TablaConversiones.Count == 0) pServicioConversiones.AgregarConversiones(pConversion);
-                else pServicioConversiones.ActualizarConversiones(pConversion);
-            }
-        }
-        catch (Exception Ex)
-        {
-
-        }
-    }
-
-
-    public void TransaccionesEnLinea(string xmlLink)
-    {
-        try
-        {   
-            XmlDocument DocumentoXml = new XmlDocument();
-            DocumentoXml.Load(xmlLink);         
-            XmlElement ElementoRaiz = DocumentoXml.DocumentElement;
-            XmlNodeList Nodos = ElementoRaiz.ChildNodes;
-            //se crea un formateador para indicar si el separador es un punto o una coma en los numeros del RATE
-            NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-            proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
-            ServicioTransacciones pServicioProductos = new ServicioTransacciones();
-            List<GNB_TRANSAC> pTransacciones = new List<GNB_TRANSAC>();
-            List<GNB_TRANSAC> TablaProductos = pServicioProductos.ObtenerProductos();
-            GNB_TRANSAC pTransac = new GNB_TRANSAC();
-
-            for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
-            {
-                Conversiones pConversionesActuales = new Conversiones();
-                XmlNode NodoActual = Nodos.Item(pNodos);
-                XmlElement Dato = (XmlElement)NodoActual;
-                XmlAttribute Atributo1 = Dato.GetAttributeNode("sku");
-                XmlAttribute Atributo2 = Dato.GetAttributeNode("amount");
-                XmlAttribute Atributo3 = Dato.GetAttributeNode("currency");
-                pTransac.ID_PRODUCT = pNodos + 1;
-                //pProducto.ID_PRODUCTOS = pNodos + 1;
-                pTransac.SKU = Atributo1.InnerText.ToString();
-                pTransac.AMOUNT = Convert.ToDecimal(Atributo2.InnerText.ToString(), proveedorDecimal);
-                //pProducto.AMMOUNT = Convert.ToDecimal(Atributo2.InnerText.ToString(), proveedorDecimal);
-                pTransac.CURRENCY = Atributo3.InnerText.ToString();
-
-                if (TablaProductos.Count == 0) pServicioProductos.AgregarProducto(pTransac);
-                //else pServicioProductos.ActualizarProductos(pProducto);
-            }
-        }
-        catch (Exception Ex)
-        {
-
-        }
-    }
-
+    /// <summary>
+    /// Permite la busqueda de las transacciones de un SKU
+    /// </summary>
+    /// <param name="mP">Cadena XML donde se encuentran los datos de la tabla GNB_TRANSAC</param>
+    /// <param name="Busqueda">SKU A Buscar</param>
+    /// <returns>TODAS LAS TRANSACCIONES REALIZADAS CON ESE SKU</returns>
     public string BuscarTransacciones(string mP, string Busqueda)
     {
         Transac TransaccionABuscar = new Transac();
@@ -273,6 +214,7 @@ public class Service : IService
         XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
         StringReader lector = new StringReader(mP);
         TransacCollection pTransaccionesEncontradas = (TransacCollection)pSerializador.Deserialize(lector);
+
         TransacCollection pTransaccionesCoincidiencias = new TransacCollection();
 
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
@@ -296,34 +238,6 @@ public class Service : IService
         return escritor.ToString();
     }
 
-    //public string ConsultaProductos(string Producto, List<GNB_TRANSAC> ListaProductos)
-    //{
-    //    ServicioTransacciones pServicioProductos = new ServicioTransacciones();
-
-    //    TransacCollection pProductosCollection = new TransacCollection();
-
-    //    NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
-    //    proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
-
-    //    foreach (GNB_PRODUCTOS indice in ListaProductos)
-    //    {
-    //        Transac iComun = new Transac();
-    //        if(Producto == indice.SKU.ToString())
-    //        {
-    //            iComun.Id_Productos = indice.ID_PRODUCTS;
-    //            iComun.Sku = indice.SKU;
-    //            iComun.Ammount = Convert.ToDouble(indice.AMOUNT, proveedorDecimal);
-    //            iComun.Currency = indice.CURRENCY;
-    //            pProductosCollection.Add(iComun);
-    //        }
-    //    }
-
-    //    XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
-    //    StringWriter escritor = new StringWriter();
-    //    pSerializador.Serialize(escritor, pProductosCollection);
-    //    return escritor.ToString();
-    //}
-
 
     /// <summary>
     /// Consulta a un LINK de HEROKU por los parametros de SKU, AMOUNT y CURRENCY
@@ -331,7 +245,7 @@ public class Service : IService
     /// </summary>
     /// <param name="xmlLink">debe ser el link de heroku de las transacciones</param>
     /// <returns>Cadena de caracteres con el contenido del documento XML serializado</returns>
-    public string ConsultaXML(string xmlLink)
+    public string ConsultaXMLTransac(string xmlLink)
     {
         XmlDocument DocumentoXml = new XmlDocument(); //variable para almacenar un link y abrirlo como XML
         DocumentoXml.Load(xmlLink); //carga el archivo XML
@@ -369,14 +283,71 @@ public class Service : IService
 
 
     /// <summary>
-    /// elimina todos los elementos de la tabla productos
+    /// Consulta a un LINK de HEROKU por los parametros de FROM, TO y RATE
+    /// para luego crear una cadena de datos para trabajar con ella
+    /// </summary>
+    /// <param name="xmlLink">debe ser el link de heroku de las transacciones</param>
+    /// <returns>Cadena de caracteres con el contenido del documento XML serializado</returns>
+    public string ConsultaXMLConver(string xmlLink)
+    {
+        XmlDocument DocumentoXml = new XmlDocument(); //variable para almacenar un link y abrirlo como XML
+        DocumentoXml.Load(xmlLink); //carga el archivo XML
+        XmlElement ElementoRaiz = DocumentoXml.DocumentElement; //elemento raiz principal
+        XmlNodeList Nodos = ElementoRaiz.ChildNodes; //hijos de ese raiz
+
+        NumberFormatInfo proveedorDecimal = new NumberFormatInfo(); //tipo de decimal
+        proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador decimal
+
+        ConversionesCollection pConversionesCollection = new ConversionesCollection();
+
+        for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
+        {
+            Conversiones pConversion = new Conversiones();
+
+            XmlNode NodoActual = Nodos.Item(pNodos);
+            XmlElement Dato = (XmlElement)NodoActual;
+            XmlAttribute Atributo1 = Dato.GetAttributeNode("from");
+            XmlAttribute Atributo2 = Dato.GetAttributeNode("to");
+            XmlAttribute Atributo3 = Dato.GetAttributeNode("rate");
+
+            pConversion.Id_Conversion = pNodos + 1;
+            pConversion.From_Currency = Atributo1.InnerText.ToString();
+            pConversion.To_Currency = Atributo2.InnerText.ToString();
+            pConversion.Rate = Convert.ToDouble(Atributo3.InnerText.ToString(), proveedorDecimal);
+
+            pConversionesCollection.Add(pConversion);
+        }
+
+        XmlSerializer pSerializador = new XmlSerializer(typeof(ConversionesCollection));
+        StringWriter escritor = new StringWriter();
+        pSerializador.Serialize(escritor, pConversionesCollection);
+        return escritor.ToString();
+    }
+
+    /// <summary>
+    /// elimina todos los elementos de la tabla GNB_TRANSAC
     /// </summary>
     public void LimpiarTransacciones()
     {
         ServicioTransacciones pServicioTrnasacciones = new ServicioTransacciones();
-        pServicioTrnasacciones.LimpiarProductos();
+        pServicioTrnasacciones.LimpiarTransaccion();
     }
 
+    /// <summary>
+    /// elimina todos los elementos de la tabla GNB_CONVERSIONES
+    /// </summary>
+    public void LimpiarConversiones()
+    {
+        ServicioConversiones pServicioTrnasacciones = new ServicioConversiones();
+        pServicioTrnasacciones.LimpiarConversiones();
+    }
+
+
+    /// <summary>
+    /// Obtiene una lista de transacciones (SKU) dentro de una cadena XML 
+    /// </summary>
+    /// <param name="mTransaccionesXML">Una cadena XML que almacena datos de Transacciones</param>
+    /// <returns>los elementos SKU dentro de la tabla</returns>
     public string ListaTransacciones(string mTransaccionesXML)
     {
         XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
@@ -388,15 +359,6 @@ public class Service : IService
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
 
-        //foreach(Transac Fila in pTransaccionesXML)
-        //{
-        //    foreach(Transac FilaInterna in pTransaccionesExtraidas)
-        //    {
-
-        //    }
-
-        //}
- 
         for (int index1 = 0; index1 < pTransaccionesXML.Count; index1++)
         {
             Transac Fila = pTransaccionesXML.ElementAt(index1); 
@@ -417,9 +379,10 @@ public class Service : IService
                 else
                 {
                     
-                    Transac FilaInterna = pTransaccionesExtraidas.ElementAt(index2);
-                    
-                    if (Fila.Sku.ToString() != FilaInterna.Sku.ToString())
+                    Transac FilaInterna = new Transac();
+
+                    if (pTransaccionesExtraidas.Any(o => o.Sku == Fila.Sku)) break;
+                    else
                     {
                         FilaInterna.Id_Product = Fila.Id_Product;
                         FilaInterna.Sku = Fila.Sku;
@@ -427,10 +390,10 @@ public class Service : IService
                         FilaInterna.Currency = Fila.Currency;
                         pTransaccionesExtraidas.Add(FilaInterna);
                         break;
-                    }
-                }
 
-                
+                    }
+                   
+                }
             }
         }
     

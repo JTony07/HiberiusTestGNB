@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GNB_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BD_GNBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="GNB_CONVERSIONES">
           <Key>
             <PropertyRef Name="ID_CONVERSION" />
@@ -23,7 +23,7 @@
           <Property Name="AMOUNT" Type="money" Nullable="false" />
           <Property Name="CURRENCY" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="GNB_BDModelStoreContainer">
+        <EntityContainer Name="BD_GNBModel1StoreContainer">
           <EntitySet Name="GNB_CONVERSIONES" EntityType="Self.GNB_CONVERSIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GNB_TRANSAC" EntityType="Self.GNB_TRANSAC" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -31,7 +31,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="GNB_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="BD_GNBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="GNB_CONVERSIONES">
           <Key>
             <PropertyRef Name="ID_CONVERSION" />
@@ -50,7 +50,7 @@
           <Property Name="AMOUNT" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="CURRENCY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="GNB_BDEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BD_GNBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="GNB_CONVERSIONES" EntityType="Self.GNB_CONVERSIONES" />
           <EntitySet Name="GNB_TRANSAC" EntityType="Self.GNB_TRANSAC" />
         </EntityContainer>
@@ -59,9 +59,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GNB_BDModelStoreContainer" CdmEntityContainer="GNB_BDEntities1">
+        <EntityContainerMapping StorageEntityContainer="BD_GNBModel1StoreContainer" CdmEntityContainer="BD_GNBEntities1">
           <EntitySetMapping Name="GNB_CONVERSIONES">
-            <EntityTypeMapping TypeName="GNB_BDModel.GNB_CONVERSIONES">
+            <EntityTypeMapping TypeName="BD_GNBModel1.GNB_CONVERSIONES">
               <MappingFragment StoreEntitySet="GNB_CONVERSIONES">
                 <ScalarProperty Name="ID_CONVERSION" ColumnName="ID_CONVERSION" />
                 <ScalarProperty Name="FROM_CURRENCY" ColumnName="FROM_CURRENCY" />
@@ -71,7 +71,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GNB_TRANSAC">
-            <EntityTypeMapping TypeName="GNB_BDModel.GNB_TRANSAC">
+            <EntityTypeMapping TypeName="BD_GNBModel1.GNB_TRANSAC">
               <MappingFragment StoreEntitySet="GNB_TRANSAC">
                 <ScalarProperty Name="ID_PRODUCT" ColumnName="ID_PRODUCT" />
                 <ScalarProperty Name="SKU" ColumnName="SKU" />

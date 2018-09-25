@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e57b31ce6c8b4cb990076cb59e5ebc99" Name="Diagram1">
-        <EntityTypeShape EntityType="GNB_BDModel.GNB_CONVERSIONES" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GNB_BDModel.GNB_TRANSAC" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="f7d02af8c2e340e782e0b4e5077d6b1d" Name="Diagram1">
+        <EntityTypeShape EntityType="BD_GNBModel1.GNB_CONVERSIONES" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_GNBModel1.GNB_TRANSAC" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -36,26 +36,33 @@ public interface IService
     string BuscarTransacciones(string mP, string Busqueda);
 
     [OperationContract]
-    string ConsultaXML(string xmlLink);
+    string ConsultaXMLTransac(string xmlLink);
+
+    [OperationContract]
+    string ConsultaXMLConver(string xmlLink);
 
     [OperationContract]
     void LimpiarTransacciones();
 
+    [OperationContract]
+    void LimpiarConversiones();
+
+    [OperationContract]
+    string ListaTransacciones(string mTransaccionesXML);
 
     //[OperationContract]
     //void ConversionesEnLinea(string xmlLink);
 
-    [OperationContract]
-    void TransaccionesEnLinea(string xmlLink);
-
     //[OperationContract]
-    //string Busqueda(string Producto, List<GNB_PRODUCTOS> ListaProductos);
+    //void TransaccionesEnLinea(string xmlLink);
 
-    //[OperationContract]
-    //string ConsultaXML(string xmlLink);
+    ////[OperationContract]
+    ////string Busqueda(string Producto, List<GNB_PRODUCTOS> ListaProductos);
 
-    [OperationContract]
-    string ListaTransacciones(string mTransaccionesXML);
+    ////[OperationContract]
+    ////string ConsultaXML(string xmlLink);
+
+
 }
 
 

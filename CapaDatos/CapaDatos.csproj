@@ -31,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -50,25 +50,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GNB_CONVERSIONES.cs">
-      <DependentUpon>ModelGNB.tt</DependentUpon>
+      <DependentUpon>ModelGoliath.tt</DependentUpon>
     </Compile>
     <Compile Include="GNB_TRANSAC.cs">
-      <DependentUpon>ModelGNB.tt</DependentUpon>
+      <DependentUpon>ModelGoliath.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelGNB.Context.cs">
+    <Compile Include="ModelGoliath.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGNB.Context.tt</DependentUpon>
+      <DependentUpon>ModelGoliath.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelGNB.cs">
+    <Compile Include="ModelGoliath.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGNB.tt</DependentUpon>
+      <DependentUpon>ModelGoliath.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelGNB.Designer.cs">
+    <Compile Include="ModelGoliath.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGNB.edmx</DependentUpon>
+      <DependentUpon>ModelGoliath.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicioConversiones.cs" />
@@ -77,12 +77,12 @@
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="BD_GNB\BD_GNB.bak" />
-    <EntityDeploy Include="ModelGNB.edmx">
+    <EntityDeploy Include="ModelGoliath.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelGNB.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelGoliath.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ModelGNB.edmx.diagram">
-      <DependentUpon>ModelGNB.edmx</DependentUpon>
+    <None Include="ModelGoliath.edmx.diagram">
+      <DependentUpon>ModelGoliath.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -90,15 +90,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ModelGNB.Context.tt">
+    <Content Include="ModelGoliath.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelGNB.edmx</DependentUpon>
-      <LastGenOutput>ModelGNB.Context.cs</LastGenOutput>
+      <DependentUpon>ModelGoliath.edmx</DependentUpon>
+      <LastGenOutput>ModelGoliath.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ModelGNB.tt">
+    <Content Include="ModelGoliath.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelGNB.edmx</DependentUpon>
-      <LastGenOutput>ModelGNB.cs</LastGenOutput>
+      <DependentUpon>ModelGoliath.edmx</DependentUpon>
+      <LastGenOutput>ModelGoliath.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
