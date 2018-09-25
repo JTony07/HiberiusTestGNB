@@ -50,6 +50,9 @@ public interface IService
     [OperationContract]
     string ListaTransacciones(string mTransaccionesXML);
 
+    [OperationContract]
+    double TotalizadoEUR(string pTransaccionesXML);
+
     //[OperationContract]
     //void ConversionesEnLinea(string xmlLink);
 

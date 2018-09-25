@@ -11,6 +11,7 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Globalization;
+using System.Collections;
 
 public class Service : IService
 {
@@ -400,5 +401,72 @@ public class Service : IService
         StringWriter escritor = new StringWriter();
         pSerializador.Serialize(escritor, pTransaccionesExtraidas);
         return escritor.ToString();
+    }
+
+
+    public double  TotalizadoEUR(string pTransaccionesXML)
+    {
+        XmlSerializer pSerializadorTransac = new XmlSerializer(typeof(TransacCollection));
+        StringReader LectorTransac = new StringReader(pTransaccionesXML);
+        TransacCollection pTransacciones = (TransacCollection)pSerializadorTransac.Deserialize(LectorTransac);
+
+        NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
+        proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
+
+        ServicioConversiones ServicioConversiones = new ServicioConversiones();
+        List<GNB_CONVERSIONES> ListaConversiones = new List<GNB_CONVERSIONES>();
+
+        ListaConversiones = ServicioConversiones.ObtenerConversiones();
+
+        ArrayList TasasDeConeversiones = new ArrayList();
+
+        /* segun el XML  HEROKU
+         *  0 CAD - EUR
+         *  1 EUR - CAD
+         *  2 CAD - USD
+         *  3 USD - CAD
+         *  4 EUR - AUD
+         *  5 AUD - EUR
+         */
+        double Totalizar = 0;
+
+        try
+        {
+            foreach (GNB_CONVERSIONES mConversion in ListaConversiones)
+            {
+                TasasDeConeversiones.Add(Convert.ToDouble(mConversion.RATE,proveedorDecimal));
+            }
+            double USD_CAD = (double)TasasDeConeversiones[3];
+            double CAD_EUR = (double)TasasDeConeversiones[0];
+            double AUD_EUR = (double)TasasDeConeversiones[5];
+
+            foreach (Transac pTransaccion in pTransacciones)
+            {
+
+                switch (pTransaccion.Currency.ToString())
+                {
+                    case "USD": //pasa por CAD primero luego a EUR
+                        Totalizar += (pTransaccion.Amount * USD_CAD) * CAD_EUR;
+                        break;
+                    case "CAD": //directo a EUR
+                        Totalizar += (pTransaccion.Amount * USD_CAD) * CAD_EUR;
+                        break;
+                    case "AUD": //directo a EUR
+                        Totalizar += pTransaccion.Amount * AUD_EUR;
+                        break;
+                    case "EUR":
+                        Totalizar += pTransaccion.Amount;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        catch(Exception Ex)
+        {
+
+        }
+
+        return Totalizar;
     }
 }
