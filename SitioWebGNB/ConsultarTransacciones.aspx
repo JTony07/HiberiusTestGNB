@@ -10,17 +10,17 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Image ID="Image1" runat="server" Height="315px" ImageUrl="https://i.pinimg.com/originals/b2/87/56/b28756b17fb9b9503f179125e617e250.gif" />
+            <asp:Image ID="Image1" runat="server" Height="352px" ImageUrl="https://i.pinimg.com/originals/b2/87/56/b28756b17fb9b9503f179125e617e250.gif" Width="848px" />
             <br />
             <br />
             <br />
-&nbsp;<asp:Label ID="Label1" runat="server" Text="Busque las ventas de un articulo"></asp:Label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:TextBox ID="TextBox1" runat="server" style="margin-left: 0px"></asp:TextBox>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;<asp:Label ID="Label1" runat="server" Text="Buscar Transacciones de un SKU"></asp:Label>
             &nbsp;&nbsp;<asp:DropDownList ID="DropDownList1" runat="server">
             </asp:DropDownList>
             &nbsp;
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Busqueda" />
+            <br />
             <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <br />

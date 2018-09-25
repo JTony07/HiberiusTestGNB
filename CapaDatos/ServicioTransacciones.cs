@@ -9,20 +9,17 @@ namespace CapaDatos
     public class ServicioTransacciones
     {
         //se agregan los productos a la base de datos
-        public void AgregarProducto(GNB_TRANSAC pTransac)
+        public void AgregarTransaccion(GNB_TRANSAC pTransac)
         {
-            GNB_BDEntities1 pEntidad = new GNB_BDEntities1();
-            //BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
+            BD_GNBEntities1 pEntidad = new BD_GNBEntities1();
             pEntidad.GNB_TRANSAC.Add(pTransac); //se agregan los elementos a la tabla GNB_PRODUCTOS
             pEntidad.SaveChanges(); //se guardan los cambios en la base de datos
         }
 
         //se actualizan los productos en la base de datos
-        public void ActualizarProductos(GNB_TRANSAC pTransac)
+        public void ActualizarTransaccion(GNB_TRANSAC pTransac)
         {
-            GNB_BDEntities1 pEntidad = new GNB_BDEntities1();
-            
-            //BD_GNBEntities pEntidad = new BD_GNBEntities(); // se apunta al a base de datos
+            BD_GNBEntities1 pEntidad = new BD_GNBEntities1();
             //se busca mediante una consulta donde los ID_SKU coincidan y entonces se actualiza si existe coincidencia
             //esto permite que si existe un cambio en el recurso de HEROKU la base de datos se actualice
             //
@@ -44,18 +41,16 @@ namespace CapaDatos
         }
 
         //se buscan todos los productos de la tabla GNB_PRODUCTOS
-        public List<GNB_TRANSAC> ObtenerProductos()
+        public List<GNB_TRANSAC> ObtenerTransaccion()
         {
-            GNB_BDEntities1 pEntidad = new GNB_BDEntities1();
-            //BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
+            BD_GNBEntities1 pEntidad = new BD_GNBEntities1();
             return pEntidad.GNB_TRANSAC.ToList<GNB_TRANSAC>(); // se convierten todos los elementos a una lista
         }
 
         //se buscan todos los productos de la tabla GNB_PRODUCTOS
-        public List<GNB_TRANSAC> BuscarProductos(GNB_TRANSAC pTransac)
+        public List<GNB_TRANSAC> BuscarTransaccion(GNB_TRANSAC pTransac)
         {
-            GNB_BDEntities1 pEntidad = new GNB_BDEntities1();
-            //BD_GNBEntities pEntidad = new BD_GNBEntities(); //se apunta a la base de datos
+            BD_GNBEntities1 pEntidad = new BD_GNBEntities1();
             List<GNB_TRANSAC> revisionTabla = (from dato in pEntidad.GNB_TRANSAC where dato.SKU == pTransac.SKU select dato).ToList<GNB_TRANSAC>();
             return revisionTabla; // se convierten todos los elementos a una lista
         }
@@ -63,9 +58,9 @@ namespace CapaDatos
         /// <summary>
         /// Procedimiento que limpia todos los elementos dentro de la tabla en la base de datos
         /// </summary>
-        public void LimpiarProductos()
+        public void LimpiarTransaccion()
         {
-            GNB_BDEntities1 pEntidad = new GNB_BDEntities1(); //se crea una entidad que tenga las caracteristicas de la tabla
+            BD_GNBEntities1 pEntidad = new BD_GNBEntities1();
             var Todos = from c in pEntidad.GNB_TRANSAC select c; //seleccionan todos los objetos dentro de la tabla actual
             pEntidad.GNB_TRANSAC.RemoveRange(Todos); //se eliminan todos los elementos encontrados
             pEntidad.SaveChanges(); // se guardan los cambios

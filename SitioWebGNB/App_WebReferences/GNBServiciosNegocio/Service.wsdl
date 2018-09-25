@@ -48,11 +48,17 @@
   <wsdl:message name="IService_BuscarTransacciones_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuscarTransaccionesResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_ConsultaXML_InputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultaXML" />
+  <wsdl:message name="IService_ConsultaXMLTransac_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaXMLTransac" />
   </wsdl:message>
-  <wsdl:message name="IService_ConsultaXML_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultaXMLResponse" />
+  <wsdl:message name="IService_ConsultaXMLTransac_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaXMLTransacResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_ConsultaXMLConver_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaXMLConver" />
+  </wsdl:message>
+  <wsdl:message name="IService_ConsultaXMLConver_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaXMLConverResponse" />
   </wsdl:message>
   <wsdl:message name="IService_LimpiarTransacciones_InputMessage">
     <wsdl:part name="parameters" element="tns:LimpiarTransacciones" />
@@ -60,11 +66,11 @@
   <wsdl:message name="IService_LimpiarTransacciones_OutputMessage">
     <wsdl:part name="parameters" element="tns:LimpiarTransaccionesResponse" />
   </wsdl:message>
-  <wsdl:message name="IService_TransaccionesEnLinea_InputMessage">
-    <wsdl:part name="parameters" element="tns:TransaccionesEnLinea" />
+  <wsdl:message name="IService_LimpiarConversiones_InputMessage">
+    <wsdl:part name="parameters" element="tns:LimpiarConversiones" />
   </wsdl:message>
-  <wsdl:message name="IService_TransaccionesEnLinea_OutputMessage">
-    <wsdl:part name="parameters" element="tns:TransaccionesEnLineaResponse" />
+  <wsdl:message name="IService_LimpiarConversiones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LimpiarConversionesResponse" />
   </wsdl:message>
   <wsdl:message name="IService_ListaTransacciones_InputMessage">
     <wsdl:part name="parameters" element="tns:ListaTransacciones" />
@@ -101,17 +107,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService/BuscarTransacciones" message="tns:IService_BuscarTransacciones_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/BuscarTransaccionesResponse" message="tns:IService_BuscarTransacciones_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ConsultaXML">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/ConsultaXML" message="tns:IService_ConsultaXML_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/ConsultaXMLResponse" message="tns:IService_ConsultaXML_OutputMessage" />
+    <wsdl:operation name="ConsultaXMLTransac">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ConsultaXMLTransac" message="tns:IService_ConsultaXMLTransac_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ConsultaXMLTransacResponse" message="tns:IService_ConsultaXMLTransac_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaXMLConver">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ConsultaXMLConver" message="tns:IService_ConsultaXMLConver_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ConsultaXMLConverResponse" message="tns:IService_ConsultaXMLConver_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="LimpiarTransacciones">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/LimpiarTransacciones" message="tns:IService_LimpiarTransacciones_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/LimpiarTransaccionesResponse" message="tns:IService_LimpiarTransacciones_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="TransaccionesEnLinea">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/TransaccionesEnLinea" message="tns:IService_TransaccionesEnLinea_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/TransaccionesEnLineaResponse" message="tns:IService_TransaccionesEnLinea_OutputMessage" />
+    <wsdl:operation name="LimpiarConversiones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/LimpiarConversiones" message="tns:IService_LimpiarConversiones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/LimpiarConversionesResponse" message="tns:IService_LimpiarConversiones_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ListaTransacciones">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/ListaTransacciones" message="tns:IService_ListaTransacciones_InputMessage" />
@@ -183,8 +193,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultaXML">
-      <soap:operation soapAction="http://tempuri.org/IService/ConsultaXML" style="document" />
+    <wsdl:operation name="ConsultaXMLTransac">
+      <soap:operation soapAction="http://tempuri.org/IService/ConsultaXMLTransac" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaXMLConver">
+      <soap:operation soapAction="http://tempuri.org/IService/ConsultaXMLConver" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -201,8 +220,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="TransaccionesEnLinea">
-      <soap:operation soapAction="http://tempuri.org/IService/TransaccionesEnLinea" style="document" />
+    <wsdl:operation name="LimpiarConversiones">
+      <soap:operation soapAction="http://tempuri.org/IService/LimpiarConversiones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

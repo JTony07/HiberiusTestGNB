@@ -87,17 +87,31 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ConsultaXML">
+  <xs:element name="ConsultaXMLTransac">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="xmlLink" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ConsultaXMLResponse">
+  <xs:element name="ConsultaXMLTransacResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ConsultaXMLResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ConsultaXMLTransacResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaXMLConver">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="xmlLink" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaXMLConverResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConsultaXMLConverResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -111,14 +125,12 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="TransaccionesEnLinea">
+  <xs:element name="LimpiarConversiones">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="xmlLink" nillable="true" type="xs:string" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="TransaccionesEnLineaResponse">
+  <xs:element name="LimpiarConversionesResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
