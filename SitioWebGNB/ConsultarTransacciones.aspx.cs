@@ -9,14 +9,38 @@ using System.Xml.Serialization;
 using System.IO;
 
 public partial class ConsultarTransacciones : System.Web.UI.Page
-{
-    string ResultadoXMLTransac = "" , ResultadoXMLConver = "";
-    bool ResultadoOnline = false;
+{ 
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        
+
+        
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient();
+        try
+        {
+            string TransaccionesEnBD = pServicio.ObtenerTransacciones();
+            string ResultadoBusqueda = pServicio.BuscarTransacciones(TransaccionesEnBD, DropDownList1.SelectedItem.ToString());
+            XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
+            StringReader lector = new StringReader(ResultadoBusqueda);
+            TransacCollection TransaccionesEncontradas = (TransacCollection)pSerializador.Deserialize(lector);
+            GridView1.DataSource = TransaccionesEncontradas;
+            GridView1.DataBind();
+        }
+        catch(Exception Ex)
+        {
+
+        }
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
         GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient(); //se crea una instancia con los servicios ofrecidos
-        Uri uriHerokuC = new Uri ("http://quiet-stone-2094.herokuapp.com/rates.xml"); //link para las tasas de conversiones
+        Uri uriHerokuC = new Uri("http://quiet-stone-2094.herokuapp.com/rates.xml"); //link para las tasas de conversiones
         Uri uriHerokuT = new Uri("http://quiet-stone-2094.herokuapp.com/transactions.xml"); //link para las transacciones
 
         XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection)); //objeto comun necesario para trabajar con EntityFramework
@@ -30,9 +54,9 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
             //-----------------------------------------------------------------------------------------
 
             //PASO 1: SE EXTRAEN LOS ELEMENTOS EN FORMA DE XML EN CADENA DESDE LA PAGINA DE HEROKU PARA "TRANSACTIONS"
-            ResultadoXMLTransac = pServicio.ConsultaXMLTransac(uriHerokuT.ToString()); //se buscan los elementos del XML
+            string ResultadoXMLTransac = pServicio.ConsultaXMLTransac(uriHerokuT.ToString()); //se buscan los elementos del XML
             //PASO 2: SE EXTRAEN LOS ELEMENTOS EN FORMA DE XML EN CADENA DESDE LA PAGINA HEROKU PARA "CONVERSIONS"
-            ResultadoXMLConver = pServicio.ConsultaXMLConver(uriHerokuC.ToString());
+            string ResultadoXMLConver = pServicio.ConsultaXMLConver(uriHerokuC.ToString());
 
             //A ESTE PUNTO SI ALGUNO DE LOS DOS FALLA ENTONCES EL BLOQUE TRY-CATCH LANZARA 
             //UNA EXCEPCION PERO NO SE ACTUALIZARAN NINGUNA DE LAS TABLAS
@@ -48,15 +72,14 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
 
             //PASO 5: SE EXTRAEN LOS ELEMENTOS DISPONIBLES EN LA COLUMNA SKU (LOS QUE SE PUEDEN BUSCAR)
             string ListaDeTransacciones = pServicio.ListaTransacciones(ResultadoXMLTransac); //se buscan las transacciones disponibles
-            //PASO 6: SE MUESTRAN LOS DIFERENTES SKU POSIBLES A BUSCAR
+                                                                                             //PASO 6: SE MUESTRAN LOS DIFERENTES SKU POSIBLES A BUSCAR
             lector = new StringReader(ListaDeTransacciones);
             TransaccionesEncontradas = (TransacCollection)pSerializador.Deserialize(lector);
             DropDownList1.DataSource = TransaccionesEncontradas;
             DropDownList1.DataValueField = "Sku";
             DropDownList1.DataBind();
-            ResultadoOnline = true;
         }
-        catch(Exception Ex)
+        catch (Exception Ex)
         {
 
             //-----------------------------------------------------------------------------------------
@@ -71,24 +94,9 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
             lector = new StringReader(ListaDeTransaccionesBD);
             TransaccionesEncontradas = (TransacCollection)pSerializador.Deserialize(lector);
             DropDownList1.DataSource = TransaccionesEncontradas;
+            DropDownList1.DataTextField = "Sku";
             DropDownList1.DataValueField = "Sku";
             DropDownList1.DataBind();
-            ResultadoOnline = false;
-        }
-    }
-
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient();
-        try
-        {
-            string ResultadoBusqueda = pServicio.BuscarTransacciones(ResultadoXMLTransac, DropDownList1.SelectedValue.ToString());
-            GridView1.DataSource = ResultadoBusqueda;
-            GridView1.DataBind();
-        }
-        catch(Exception Ex)
-        {
-
         }
     }
 }
