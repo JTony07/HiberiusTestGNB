@@ -299,8 +299,9 @@ public class Service : IService
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo(); //tipo de decimal
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador decimal
 
-        ConversionesCollection pConversionesCollection = new ConversionesCollection();
-
+        ConversionesCollection pConversionesCollection = new ConversionesCollection(); //es donde se almacenaran las conversiones encontradas en el XML
+        
+        //ciclo para recorrer los nodos dentro de la consulta XML
         for (int pNodos = 0; pNodos < Nodos.Count; pNodos++)
         {
             Conversiones pConversion = new Conversiones();
@@ -319,6 +320,8 @@ public class Service : IService
             pConversionesCollection.Add(pConversion);
         }
 
+
+        //segmento para seriralizar los resultados y entregar una cadena de caracteres
         XmlSerializer pSerializador = new XmlSerializer(typeof(ConversionesCollection));
         StringWriter escritor = new StringWriter();
         pSerializador.Serialize(escritor, pConversionesCollection);
@@ -331,7 +334,7 @@ public class Service : IService
     public void LimpiarTransacciones()
     {
         ServicioTransacciones pServicioTrnasacciones = new ServicioTransacciones();
-        pServicioTrnasacciones.LimpiarTransaccion();
+        pServicioTrnasacciones.LimpiarTransaccion(); //limpia todos los campos de la tabla GNB_TRANSAC
     }
 
     /// <summary>
@@ -340,7 +343,7 @@ public class Service : IService
     public void LimpiarConversiones()
     {
         ServicioConversiones pServicioTrnasacciones = new ServicioConversiones();
-        pServicioTrnasacciones.LimpiarConversiones();
+        pServicioTrnasacciones.LimpiarConversiones(); //limpia todos los campos de la tabla GNB_CONVERSIONES
     }
 
 
@@ -351,21 +354,23 @@ public class Service : IService
     /// <returns>los elementos SKU dentro de la tabla</returns>
     public string ListaTransacciones(string mTransaccionesXML)
     {
+        //segmento para deserializar la cadena de caracteres pasada como parametro
         XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
         StringReader lector = new StringReader(mTransaccionesXML);
         TransacCollection pTransaccionesXML = (TransacCollection)pSerializador.Deserialize(lector);
 
-        TransacCollection pTransaccionesExtraidas = new TransacCollection();
+        TransacCollection pTransaccionesExtraidas = new TransacCollection(); //elemento buffer de las transacciones solicitadas
 
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
 
+        //ciclo para recorrer los elementos dentro del XML y crear un buffer con solo un SKU por elemento existente
         for (int index1 = 0; index1 < pTransaccionesXML.Count; index1++)
         {
             Transac Fila = pTransaccionesXML.ElementAt(index1); 
             for (int index2 = 0; index2 <= pTransaccionesExtraidas.Count; index2++)
             {
-
+                //si el objeto "pTransaccionesExtraidas esta vacio entonces guarda el primer elemento
                 if (pTransaccionesExtraidas.Count == 0)
                 {
                     Transac FilaAuxiliar = new Transac();
@@ -376,12 +381,13 @@ public class Service : IService
                     pTransaccionesExtraidas.Add(FilaAuxiliar);
                     break;
                 }
-                else if (index2 == pTransaccionesExtraidas.Count) break;
+                else if (index2 == pTransaccionesExtraidas.Count) break; //si el elemento a evaluar es el ultimo se salta (ya que el recorrido debe ser menor al .count del objeto ya que comienza en 0)
                 else
                 {
-                    
-                    Transac FilaInterna = new Transac();
+                    Transac FilaInterna = new Transac();//objeto que servira de buffer momentaneo
 
+                    //se pregunta con una consulta si el SKU existe dentro del buffer al menos una vez
+                    //si no existe entonces se guarda
                     if (pTransaccionesExtraidas.Any(o => o.Sku == Fila.Sku)) break;
                     else
                     {
@@ -398,51 +404,61 @@ public class Service : IService
             }
         }
     
+        //segmento para serializar el resultado y enviarlo como cadena de caracteres
         StringWriter escritor = new StringWriter();
         pSerializador.Serialize(escritor, pTransaccionesExtraidas);
         return escritor.ToString();
     }
 
-
+    /// <summary>
+    /// Permite totalizar todos los elementos en la transaccion del campo "AMOUNT" en EUR haciendo
+    /// las conversiones respectivas segun la tabla HEROKU de conversiones
+    /// </summary>
+    /// <param name="pTransaccionesXML"> cadena de caracteres de tipo XML que contenga transacciones</param>
+    /// <returns>el total en formato redondeado "AwayFromZero"</returns>
     public double  TotalizadoEUR(string pTransaccionesXML)
     {
+        //segmento para deserializar el XML entrante como parametro
         XmlSerializer pSerializadorTransac = new XmlSerializer(typeof(TransacCollection));
         StringReader LectorTransac = new StringReader(pTransaccionesXML);
         TransacCollection pTransacciones = (TransacCollection)pSerializadorTransac.Deserialize(LectorTransac);
 
+        //PROVEEDOR DECIMAL
         NumberFormatInfo proveedorDecimal = new NumberFormatInfo();
         proveedorDecimal.NumberDecimalSeparator = "."; //se asigna el punto como separador
 
+        //Servicios necesarios para consultar las conversiones almacenadas en la BD
         ServicioConversiones ServicioConversiones = new ServicioConversiones();
         List<GNB_CONVERSIONES> ListaConversiones = new List<GNB_CONVERSIONES>();
 
-        ListaConversiones = ServicioConversiones.ObtenerConversiones();
+        ListaConversiones = ServicioConversiones.ObtenerConversiones(); //se obtienen las conversiones de la BD
 
-        ArrayList TasasDeConeversiones = new ArrayList();
+        ArrayList TasasDeConeversiones = new ArrayList(); //Arreglo para almacenar solo los RATE de conversiones
 
-        /* segun el XML  HEROKU
-         *  0 CAD - EUR
-         *  1 EUR - CAD
-         *  2 CAD - USD
-         *  3 USD - CAD
-         *  4 EUR - AUD
-         *  5 AUD - EUR
-         */
-        double Totalizar = 0;
+        double Totalizar = 0; //variable de totalizado
 
         try
         {
-            foreach (GNB_CONVERSIONES mConversion in ListaConversiones)
-            {
-                TasasDeConeversiones.Add(Convert.ToDouble(mConversion.RATE,proveedorDecimal));
-            }
+            //por cada elemento en la tabla de conversion se extraera el campo "RATE"
+            foreach (GNB_CONVERSIONES mConversion in ListaConversiones) TasasDeConeversiones.Add(Convert.ToDouble(mConversion.RATE, proveedorDecimal));
+
+             //se almacenan las conversiones necesarias
+             /* segun el XML  HEROKU
+             *  0 CAD - EUR
+             *  1 EUR - CAD
+             *  2 CAD - USD
+             *  3 USD - CAD
+             *  4 EUR - AUD
+             *  5 AUD - EUR
+             */
             double USD_CAD = (double)TasasDeConeversiones[3];
             double CAD_EUR = (double)TasasDeConeversiones[0];
             double AUD_EUR = (double)TasasDeConeversiones[5];
 
+            //por cada elemento en las transacciones seleccionadas se revisara el campo "CURRENCY"
             foreach (Transac pTransaccion in pTransacciones)
             {
-
+                //SI EL CURRENCY ES DISTINTO DE EUR SE APLICA UNA CONVERSION
                 switch (pTransaccion.Currency.ToString())
                 {
                     case "USD": //pasa por CAD primero luego a EUR
@@ -467,6 +483,8 @@ public class Service : IService
 
         }
 
+        //se realiza un redondeo de tipo "bank" o Gaussiano
+        Totalizar = Math.Round(Totalizar, 1, MidpointRounding.AwayFromZero);
         return Totalizar;
     }
 }

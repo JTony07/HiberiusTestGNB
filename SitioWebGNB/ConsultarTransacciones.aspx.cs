@@ -20,24 +20,26 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient();
+        GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient(); //se intancian los servicios
         try
         {
-            // SE BUSCAN TODAS LAS COINCIDENCIAS CON EL ELEMENTO SELECCIONADO DEL DROPDOWN
+            //PASO 1: SE BUSCAN TODAS LAS COINCIDENCIAS CON EL ELEMENTO SELECCIONADO DEL DROPDOWN
             string TransaccionesEnBD = pServicio.ObtenerTransacciones();
 
+            //PASO 2: SE BUSCA EL ELEMENTO SELECCIONADO EN EL DROPDOWN
             string ResultadoBusqueda = pServicio.BuscarTransacciones(TransaccionesEnBD, DropDownList1.SelectedItem.ToString());
+
+            //PASO 3: LA LISTA DE ELEMENTOS SELECCIONADOS SE TOTALIZAN
             double TotalizadoEUR = pServicio.TotalizadoEUR(TransaccionesEnBD);
 
+            //SEGMENTO PARA DESERIALIZAR LOS DATOS
             XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
             StringReader lector = new StringReader(ResultadoBusqueda);
             TransacCollection TransaccionesEncontradas = (TransacCollection)pSerializador.Deserialize(lector);
 
             //MUESTRA EN EL LABEL2
             Label2.Visible = true;
-            
-            TotalizadoEUR = Math.Round(TotalizadoEUR, 1, MidpointRounding.AwayFromZero);
-            
+            //MUESTRA MENSAJE DE TOTALIZADO
             Label2.Text = "TOTAL VENTAS DE TRANSACCION: " + DropDownList1.SelectedItem.ToString() + "<br>" + "ES: " + TotalizadoEUR.ToString() + " EUR"+ "<br>"; 
 
             //SE MUESTRA LA TABLA DE ELEMENTOS DE COINCIDENCIA SKU
