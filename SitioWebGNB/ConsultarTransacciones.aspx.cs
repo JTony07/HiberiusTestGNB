@@ -20,14 +20,29 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient();
+        GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient(); //se intancian los servicios
         try
         {
+            //PASO 1: SE BUSCAN TODAS LAS COINCIDENCIAS CON EL ELEMENTO SELECCIONADO DEL DROPDOWN
             string TransaccionesEnBD = pServicio.ObtenerTransacciones();
+
+            //PASO 2: SE BUSCA EL ELEMENTO SELECCIONADO EN EL DROPDOWN
             string ResultadoBusqueda = pServicio.BuscarTransacciones(TransaccionesEnBD, DropDownList1.SelectedItem.ToString());
+
+            //PASO 3: LA LISTA DE ELEMENTOS SELECCIONADOS SE TOTALIZAN
+            double TotalizadoEUR = pServicio.TotalizadoEUR(TransaccionesEnBD);
+
+            //SEGMENTO PARA DESERIALIZAR LOS DATOS
             XmlSerializer pSerializador = new XmlSerializer(typeof(TransacCollection));
             StringReader lector = new StringReader(ResultadoBusqueda);
             TransacCollection TransaccionesEncontradas = (TransacCollection)pSerializador.Deserialize(lector);
+
+            //MUESTRA EN EL LABEL2
+            Label2.Visible = true;
+            //MUESTRA MENSAJE DE TOTALIZADO
+            Label2.Text = "TOTAL VENTAS DE TRANSACCION: " + DropDownList1.SelectedItem.ToString() + "<br>" + "ES: " + TotalizadoEUR.ToString() + " EUR"+ "<br>"; 
+
+            //SE MUESTRA LA TABLA DE ELEMENTOS DE COINCIDENCIA SKU
             GridView1.DataSource = TransaccionesEncontradas;
             GridView1.DataBind();
         }
@@ -39,6 +54,8 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
 
     protected void Button2_Click(object sender, EventArgs e)
     {
+        Label2.Text = "";
+        Label2.Visible = false;
         GNBServiciosNegocio.ServiceClient pServicio = new GNBServiciosNegocio.ServiceClient(); //se crea una instancia con los servicios ofrecidos
         Uri uriHerokuC = new Uri("http://quiet-stone-2094.herokuapp.com/rates.xml"); //link para las tasas de conversiones
         Uri uriHerokuT = new Uri("http://quiet-stone-2094.herokuapp.com/transactions.xml"); //link para las transacciones
@@ -47,32 +64,27 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
         StringReader lector; //un lector que nos permitira leer el documento serializado 
         TransacCollection TransaccionesEncontradas; //variable donde se vaciaran los datos de las Transacciones
 
+        //INTENTO CON URL HEROKU PARA TRANSACCIONES
         try
         {
             //-----------------------------------------------------------------------------------------
             // CASO #1 : SE BUSCA POR LA INFORMACION DEL SERVIDOR HEROKU PARA ACTUALIZAR LA BASE DE DATOS
             //-----------------------------------------------------------------------------------------
 
+
             //PASO 1: SE EXTRAEN LOS ELEMENTOS EN FORMA DE XML EN CADENA DESDE LA PAGINA DE HEROKU PARA "TRANSACTIONS"
             string ResultadoXMLTransac = pServicio.ConsultaXMLTransac(uriHerokuT.ToString()); //se buscan los elementos del XML
-            //PASO 2: SE EXTRAEN LOS ELEMENTOS EN FORMA DE XML EN CADENA DESDE LA PAGINA HEROKU PARA "CONVERSIONS"
-            string ResultadoXMLConver = pServicio.ConsultaXMLConver(uriHerokuC.ToString());
 
-            //A ESTE PUNTO SI ALGUNO DE LOS DOS FALLA ENTONCES EL BLOQUE TRY-CATCH LANZARA 
-            //UNA EXCEPCION PERO NO SE ACTUALIZARAN NINGUNA DE LAS TABLAS
-            //LO CUAL PROTEGE DE UNA DISCREPANCIA DE DATOS
-
-            //PASO 3: SE LIMPIAN AMBAS BASES DE DATOS
+            //PASO 2: SE LIMPIAN AMBAS BASES DE DATOS
             pServicio.LimpiarTransacciones();
-            pServicio.LimpiarConversiones();
 
-            //PASO 4: SE ALMACENAN LOS NUEVOS VALORES EN LA BASE DE DATOS
+            //PASO 3: SE ALMACENAN LOS NUEVOS VALORES EN LA BASE DE DATOS
             pServicio.AgregarTransacciones(ResultadoXMLTransac);
-            pServicio.AgregarConversiones(ResultadoXMLConver);
 
-            //PASO 5: SE EXTRAEN LOS ELEMENTOS DISPONIBLES EN LA COLUMNA SKU (LOS QUE SE PUEDEN BUSCAR)
+            //PASO 4: SE EXTRAEN LOS ELEMENTOS DISPONIBLES EN LA COLUMNA SKU (LOS QUE SE PUEDEN BUSCAR)
             string ListaDeTransacciones = pServicio.ListaTransacciones(ResultadoXMLTransac); //se buscan las transacciones disponibles
-                                                                                             //PASO 6: SE MUESTRAN LOS DIFERENTES SKU POSIBLES A BUSCAR
+
+            //PASO 5: SE MUESTRAN LOS DIFERENTES SKU POSIBLES A BUSCAR
             lector = new StringReader(ListaDeTransacciones);
             TransaccionesEncontradas = (TransacCollection)pSerializador.Deserialize(lector);
             DropDownList1.DataSource = TransaccionesEncontradas;
@@ -81,15 +93,16 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
         }
         catch (Exception Ex)
         {
-
             //-----------------------------------------------------------------------------------------
             // CASO #2 : EL SERVIDOR DE HEROKU NO RESPONDE Y POR ENDE HAY QUE BUSCAR LOS DATOS DENTRO DE LA BD
             //-----------------------------------------------------------------------------------------
 
             //PASO 1: SE BUSCAN LAS TRANSACCIONES DENTRO DE LA BASE DE DATOS
             string UltimasTransacciones = pServicio.ObtenerTransacciones();
+
             //PASO 2: SE EXTRAEN LOS ELEMENTOS DISPONIBLES EN LA COLUMNA SKU (LOS QUE SE PUEDEN BUSCAR)
             string ListaDeTransaccionesBD = pServicio.ListaTransacciones(UltimasTransacciones);
+
             //PASO 3: SE MUESRAN LOS DIFERENTES SKU POSIBLES A BUSCAR
             lector = new StringReader(ListaDeTransaccionesBD);
             TransaccionesEncontradas = (TransacCollection)pSerializador.Deserialize(lector);
@@ -97,6 +110,23 @@ public partial class ConsultarTransacciones : System.Web.UI.Page
             DropDownList1.DataTextField = "Sku";
             DropDownList1.DataValueField = "Sku";
             DropDownList1.DataBind();
+        }
+
+        //INTENTO CON URL HEROKU PARA CONVERSIONES
+        try
+        {
+            //PASO 2: SE EXTRAEN LOS ELEMENTOS EN FORMA DE XML EN CADENA DESDE LA PAGINA HEROKU PARA "CONVERSIONS"
+            string ResultadoXMLConver = pServicio.ConsultaXMLConver(uriHerokuC.ToString());
+
+            //PASO 2: SE LIMPIAN AMBAS BASES DE DATOS
+            pServicio.LimpiarConversiones();
+
+            //PASO 3: SE ALMACENAN LOS NUEVOS VALORES EN LA BASE DE DATOS
+            pServicio.AgregarConversiones(ResultadoXMLConver);
+        }
+        catch (Exception Ex)
+        {
+
         }
     }
 }
